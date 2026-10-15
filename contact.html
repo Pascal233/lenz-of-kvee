@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact | LEnz of KVee Photography</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><span class="brand">LEnz</span><span class="sub">of KVee</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="packages.html">Packages</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html" class="active">Contact</a>
+      <a href="booking.html" class="btn-nav">Book a Session</a>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="services.html">Services</a>
+  <a href="packages.html">Packages</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="contact.html" class="active">Contact</a>
+  <a href="booking.html" class="btn-nav">Book a Session</a>
+</div>
+
+<main>
+  <div class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Say Hello</span>
+      <h1>Contact Us</h1>
+      <p class="lead">Have a question, need a custom quote, or want to chat about your vision? We'd love to hear from you.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-layout">
+
+        <!-- INFO -->
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="c-icon">✉️</div>
+            <div>
+              <div class="c-label">Email</div>
+              <div class="c-val"><a href="mailto:lenzofkvee@gmail.com">lenzofkvee@gmail.com</a></div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="c-icon">📞</div>
+            <div>
+              <div class="c-label">Phone</div>
+              <div class="c-val"><a href="tel:+233000000000">+233 XX XXX XXXX</a></div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="c-icon">📍</div>
+            <div>
+              <div class="c-label">Location</div>
+              <div class="c-val">Accra, Ghana</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="c-icon">🕐</div>
+            <div>
+              <div class="c-label">Studio Hours</div>
+              <div class="c-val">Mon – Sat: 8:00 AM – 6:00 PM<br/><span style="font-size:.8rem; color:var(--dim);">Sundays by appointment only</span></div>
+            </div>
+          </div>
+
+          <div>
+            <p class="c-label" style="margin-bottom:12px;">Follow Us</p>
+            <div class="socials">
+              <a href="#" class="social-btn" aria-label="Instagram">Ig</a>
+              <a href="#" class="social-btn" aria-label="Facebook">Fb</a>
+              <a href="#" class="social-btn" aria-label="Twitter/X">Tw</a>
+            </div>
+          </div>
+
+          <div class="book-prompt">
+            <p>Ready to book a session? Skip the chat and go straight to reserving your slot.</p>
+            <a href="booking.html" class="btn btn-primary" style="font-size:.8rem; padding:10px 20px;">Book a Session →</a>
+          </div>
+        </div>
+
+        <!-- FORM -->
+        <div>
+          <!-- SUCCESS -->
+          <div class="success-state" id="contactSuccess">
+            <div class="success-icon">✓</div>
+            <h2>Message Sent!</h2>
+            <p id="contactSuccessMsg">Thanks for reaching out. We'll get back to you shortly.</p>
+            <a href="index.html" class="btn btn-primary" style="margin-top:8px;">Back to Home</a>
+          </div>
+
+          <!-- FORM -->
+          <form id="contactForm" novalidate style="display:flex; flex-direction:column; gap:20px;">
+            <div class="form-grid cols2">
+              <div class="form-group" id="cgrp-name">
+                <label for="cName">Full Name <span class="req">*</span></label>
+                <input type="text" id="cName" name="name" placeholder="Your name"/>
+                <span class="form-error">Name is required.</span>
+              </div>
+              <div class="form-group" id="cgrp-email">
+                <label for="cEmail">Email <span class="req">*</span></label>
+                <input type="email" id="cEmail" name="email" placeholder="you@example.com"/>
+                <span class="form-error" id="cEmailErr">Email is required.</span>
+              </div>
+              <div class="form-group">
+                <label for="cPhone">Phone <span class="opt">(optional)</span></label>
+                <input type="tel" id="cPhone" name="phone" placeholder="+233 XX XXX XXXX"/>
+              </div>
+              <div class="form-group">
+                <label for="cSubject">Subject <span class="opt">(optional)</span></label>
+                <input type="text" id="cSubject" name="subject" placeholder="e.g. Wedding inquiry"/>
+              </div>
+            </div>
+            <div class="form-group" id="cgrp-message">
+              <label for="cMessage">Message <span class="req">*</span></label>
+              <textarea id="cMessage" name="message" rows="6" placeholder="Tell us what you have in mind…"></textarea>
+              <span class="form-error">Message is required.</span>
+            </div>
+            <div>
+              <button type="submit" class="submit-btn" id="cSubmitBtn">
+                <span id="cBtnText">Send Message</span>
+              </button>
+              <p class="form-note">We typically respond within 24 hours.</p>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo"><span class="brand">LEnz</span><span class="sub">of KVee</span></div>
+        <p>Premium photography studio capturing your most meaningful moments.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="packages.html">Packages</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="booking.html">Book a Session</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Get in Touch</h4>
+        <ul class="footer-contact">
+          <li><span class="ic">✉</span> lenzofkvee@gmail.com</li>
+          <li><span class="ic">📞</span> +233 XX XXX XXXX</li>
+          <li><span class="ic">📍</span> Accra, Ghana</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span class="yr"></span> LEnz of KVee Photography. All rights reserved.</p>
+      <p>Capturing moments, crafting memories.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){ document.getElementById('mobileMenu').classList.toggle('open'); }
+document.querySelectorAll('.yr').forEach(el => el.textContent = new Date().getFullYear());
+
+function setErr(id, msg){
+  const g = document.getElementById(id);
+  if(!g) return;
+  g.classList.add('has-error');
+  if(msg){ const e = g.querySelector('.form-error'); if(e) e.textContent = msg; }
+}
+function clrErr(id){ const g = document.getElementById(id); if(g) g.classList.remove('has-error'); }
+
+document.getElementById('cName').addEventListener('input', ()=>clrErr('cgrp-name'));
+document.getElementById('cEmail').addEventListener('input', ()=>clrErr('cgrp-email'));
+document.getElementById('cMessage').addEventListener('input', ()=>clrErr('cgrp-message'));
+
+document.getElementById('contactForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  let valid = true;
+  const name = document.getElementById('cName').value.trim();
+  const email = document.getElementById('cEmail').value.trim();
+  const msg = document.getElementById('cMessage').value.trim();
+
+  if(!name){ setErr('cgrp-name'); valid=false; }
+  if(!email){ setErr('cgrp-email','Email is required.'); valid=false; }
+  else if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ setErr('cgrp-email','Please enter a valid email.'); valid=false; }
+  if(!msg){ setErr('cgrp-message'); valid=false; }
+  if(!valid) return;
+
+  const btn = document.getElementById('cSubmitBtn');
+  document.getElementById('cBtnText').textContent = 'Sending…';
+  btn.disabled = true;
+
+  setTimeout(()=>{
+    document.getElementById('contactForm').style.display = 'none';
+    const s = document.getElementById('contactSuccess');
+    s.classList.add('show');
+    document.getElementById('contactSuccessMsg').textContent = 'Thanks, ' + name + '! We\'ll get back to you soon.';
+    window.scrollTo({top:0, behavior:'smooth'});
+  }, 1400);
+});
+</script>
+</body>
+</html>

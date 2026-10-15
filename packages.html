@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Packages &amp; Pricing | LEnz of KVee Photography</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+    .price-note { font-size:.75rem; color:var(--gold); background:rgba(201,168,76,.08); border:1px solid rgba(201,168,76,.2); border-radius:6px; padding:8px 14px; display:inline-block; margin-top:10px; }
+    .price-table { width:100%; border-collapse:collapse; margin-top:4px; }
+    .price-table th { font-size:.68rem; letter-spacing:.18em; text-transform:uppercase; color:var(--dim); padding:10px 14px; text-align:left; border-bottom:1px solid var(--border); }
+    .price-table td { padding:11px 14px; font-size:.875rem; border-bottom:1px solid var(--border); color:var(--muted); }
+    .price-table tr:last-child td { border-bottom:none; }
+    .price-table td:last-child { color:var(--gold); font-weight:700; text-align:right; }
+    .price-table tr:hover td { background:rgba(201,168,76,.03); }
+    .price-table .tag { display:inline-flex; align-items:center; gap:5px; background:rgba(201,168,76,.12); color:var(--gold); font-size:.68rem; font-weight:600; padding:2px 8px; border-radius:20px; white-space:nowrap; }
+    .shoot-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:20px; }
+    .shoot-card { background:var(--bg2); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+    .shoot-card-head { padding:18px 20px 14px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:12px; }
+    .shoot-icon { width:38px; height:38px; background:rgba(201,168,76,.1); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0; }
+    .shoot-card-head h3 { font-size:1rem; margin-bottom:2px; }
+    .shoot-card-head p { font-size:.75rem; color:var(--dim); }
+    .event-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:20px; }
+    .event-card { background:var(--bg2); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+    .event-card-head { padding:18px 20px 14px; border-bottom:1px solid var(--border); }
+    .event-card-head h3 { font-size:1.05rem; margin-bottom:4px; }
+    .event-card-head p { font-size:.78rem; color:var(--dim); }
+    .event-rows { padding:4px 0; }
+    .event-row { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; padding:12px 20px; border-bottom:1px solid var(--border); }
+    .event-row:last-child { border-bottom:none; }
+    .event-row-label { font-size:.875rem; color:var(--muted); flex:1; }
+    .event-row-label small { display:block; font-size:.75rem; color:var(--dim); margin-top:2px; }
+    .event-row-price { font-size:.95rem; font-weight:700; color:var(--gold); white-space:nowrap; }
+    .outdoor-note { display:flex; align-items:center; gap:8px; background:rgba(201,168,76,.06); border:1px solid rgba(201,168,76,.18); border-radius:8px; padding:10px 16px; margin-bottom:28px; font-size:.82rem; color:var(--muted); }
+    .outdoor-note span { color:var(--gold); font-size:1rem; }
+    .section-divider { display:flex; align-items:center; gap:16px; margin-bottom:28px; margin-top:8px; }
+    .section-divider h2 { white-space:nowrap; font-size:1.5rem; }
+    .section-divider .div-line { flex:1; height:1px; background:var(--border); }
+  </style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><span class="brand">LEnz</span><span class="sub">of KVee</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="packages.html" class="active">Packages</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact</a>
+      <a href="booking.html" class="btn-nav">Book a Session</a>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="services.html">Services</a>
+  <a href="packages.html" class="active">Packages</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="contact.html">Contact</a>
+  <a href="booking.html" class="btn-nav">Book a Session</a>
+</div>
+
+<main>
+  <div class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Transparent Pricing</span>
+      <h1>Packages &amp; Pricing</h1>
+      <p class="lead">Clear, honest pricing with no hidden fees. Browse by session type below.</p>
+      <p class="note">All prices in Ghana Cedis (GHS). Online payment not available — we confirm your booking first.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+
+      <!-- ═══ PHOTOSHOOTS ═══ -->
+      <div style="margin-bottom:64px;">
+        <div class="section-divider"><h2>📸 Photoshoots</h2><div class="div-line"></div></div>
+
+        <div class="outdoor-note">
+          <span>⚠️</span>
+          <span><strong style="color:var(--text)">Note:</strong> Outdoor shoots start from 4 pictures and above.</span>
+        </div>
+
+        <div class="shoot-grid">
+
+          <!-- Studio Kids -->
+          <div class="shoot-card">
+            <div class="shoot-card-head">
+              <div class="shoot-icon">🏠</div>
+              <div><h3>Studio Shoot — Kids</h3><p>Indoor studio session</p></div>
+            </div>
+            <table class="price-table">
+              <thead><tr><th>Pictures</th><th style="text-align:right;">Price</th></tr></thead>
+              <tbody>
+                <tr><td>1 picture</td><td>GHS 30</td></tr>
+                <tr><td>4 pictures</td><td>GHS 100</td></tr>
+                <tr><td>5 pictures</td><td>GHS 140</td></tr>
+                <tr><td>7 pictures</td><td>GHS 200</td></tr>
+                <tr><td>10 pictures</td><td>GHS 280</td></tr>
+                <tr><td>15 pictures</td><td>GHS 420</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Outdoor Kids -->
+          <div class="shoot-card">
+            <div class="shoot-card-head">
+              <div class="shoot-icon">🌳</div>
+              <div><h3>Outdoor Shoot — Kids</h3><p>On-location session (4+ pics)</p></div>
+            </div>
+            <table class="price-table">
+              <thead><tr><th>Pictures</th><th style="text-align:right;">Price</th></tr></thead>
+              <tbody>
+                <tr><td>1 picture</td><td>GHS 50</td></tr>
+                <tr><td>4 pictures</td><td>GHS 180</td></tr>
+                <tr><td>5 pictures</td><td>GHS 230</td></tr>
+                <tr><td>7 pictures</td><td>GHS 320</td></tr>
+                <tr><td>10 pictures</td><td>GHS 460</td></tr>
+                <tr><td>15 pictures</td><td>GHS 700</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Studio Adult -->
+          <div class="shoot-card">
+            <div class="shoot-card-head">
+              <div class="shoot-icon">🏠</div>
+              <div><h3>Studio Shoot — Adult</h3><p>Indoor studio session</p></div>
+            </div>
+            <table class="price-table">
+              <thead><tr><th>Pictures</th><th style="text-align:right;">Price</th></tr></thead>
+              <tbody>
+                <tr><td>1 picture</td><td>GHS 50</td></tr>
+                <tr><td>4 pictures</td><td>GHS 190</td></tr>
+                <tr><td>5 pictures</td><td>GHS 230</td></tr>
+                <tr><td>7 pictures</td><td>GHS 310</td></tr>
+                <tr><td>10 pictures</td><td>GHS 450</td></tr>
+                <tr><td>15 pictures</td><td>GHS 720</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Outdoor Adult -->
+          <div class="shoot-card">
+            <div class="shoot-card-head">
+              <div class="shoot-icon">🌳</div>
+              <div><h3>Outdoor Shoot — Adult</h3><p>On-location session (4+ pics)</p></div>
+            </div>
+            <table class="price-table">
+              <thead><tr><th>Pictures</th><th style="text-align:right;">Price</th></tr></thead>
+              <tbody>
+                <tr><td>1 picture</td><td>GHS 70</td></tr>
+                <tr><td>4 pictures</td><td>GHS 260</td></tr>
+                <tr><td>5 pictures</td><td>GHS 330</td></tr>
+                <tr><td>7 pictures</td><td>GHS 460</td></tr>
+                <tr><td>10 pictures</td><td>GHS 680</td></tr>
+                <tr><td>15 pictures</td><td>GHS 900</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ═══ BIRTHDAY SHOOTS ═══ -->
+      <div style="margin-bottom:64px;">
+        <div class="section-divider"><h2>🎂 Birthday Shoots</h2><div class="div-line"></div></div>
+
+        <div class="shoot-grid">
+
+          <!-- Studio Birthday Kids -->
+          <div class="shoot-card">
+            <div class="shoot-card-head">
+              <div class="shoot-icon">🏠</div>
+              <div><h3>Studio Birthday — Kids</h3><p>Indoor birthday session</p></div>
+            </div>
+            <table class="price-table">
+              <thead><tr><th>Package</th><th style="text-align:right;">Price</th></tr></thead>
+              <tbody>
+                <tr><td>1 picture</td><td>GHS 50</td></tr>
+                <tr><td>4 pictures</td><td>GHS 200</td></tr>
+                <tr><td>5 pictures</td><td>GHS 230</td></tr>
+                <tr><td>7 pictures</td><td>GHS 320</td></tr>
+                <tr><td>10 pictures <span class="tag">+ Reels</span></td><td>GHS 480</td></tr>
+                <tr><td>15 pictures</td><td>GHS 720</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Outdoor Birthday Kids -->
+          <div class="shoot-card">
+            <div class="shoot-card-head">
+              <div class="shoot-icon">🌳</div>
+              <div><h3>Outdoor Birthday — Kids</h3><p>On-location (4+ pics)</p></div>
+            </div>
+            <table class="price-table">
+              <thead><tr><th>Package</th><th style="text-align:right;">Price</th></tr></thead>
+              <tbody>
+                <tr><td>1 picture</td><td>GHS 70</td></tr>
+                <tr><td>4 pictures</td><td>GHS 250</td></tr>
+                <tr><td>5 pictures</td><td>GHS 330</td></tr>
+                <tr><td>7 pictures</td><td>GHS 460</td></tr>
+                <tr><td>10 pictures <span class="tag">+ Reels</span></td><td>GHS 670</td></tr>
+                <tr><td>15 pictures <span class="tag">+ Reels</span></td><td>GHS 950</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Studio Birthday Adult -->
+          <div class="shoot-card">
+            <div class="shoot-card-head">
+              <div class="shoot-icon">🏠</div>
+              <div><h3>Studio Birthday — Adult</h3><p>Indoor birthday session</p></div>
+            </div>
+            <table class="price-table">
+              <thead><tr><th>Package</th><th style="text-align:right;">Price</th></tr></thead>
+              <tbody>
+                <tr><td>1 picture</td><td>GHS 70</td></tr>
+                <tr><td>4 pictures</td><td>GHS 260</td></tr>
+                <tr><td>5 pictures</td><td>GHS 330</td></tr>
+                <tr><td>7 pictures</td><td>GHS 460</td></tr>
+                <tr><td>10 pictures <span class="tag">+ Reels</span></td><td>GHS 680</td></tr>
+                <tr><td>15 pictures <span class="tag">+ Reels</span></td><td>GHS 980</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Outdoor Birthday Adult -->
+          <div class="shoot-card">
+            <div class="shoot-card-head">
+              <div class="shoot-icon">🌳</div>
+              <div><h3>Outdoor Birthday — Adult</h3><p>On-location (4+ pics)</p></div>
+            </div>
+            <table class="price-table">
+              <thead><tr><th>Package</th><th style="text-align:right;">Price</th></tr></thead>
+              <tbody>
+                <tr><td>1 picture</td><td>GHS 100</td></tr>
+                <tr><td>4 pictures</td><td>GHS 400</td></tr>
+                <tr><td>5 pictures</td><td>GHS 480</td></tr>
+                <tr><td>7 pictures</td><td>GHS 680</td></tr>
+                <tr><td>10 pictures <span class="tag">+ Reels</span></td><td>GHS 970</td></tr>
+                <tr><td>15 pictures <span class="tag">+ Reels</span></td><td>GHS 1,450</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ═══ EVENTS ═══ -->
+      <div style="margin-bottom:64px;">
+        <div class="section-divider"><h2>🎉 Events</h2><div class="div-line"></div></div>
+        <div class="event-grid">
+
+          <!-- Naming / Birthday Party -->
+          <div class="event-card">
+            <div class="event-card-head">
+              <h3>🍼 Naming Ceremony / Birthday Party</h3>
+              <p>Full event coverage packages</p>
+            </div>
+            <div class="event-rows">
+              <div class="event-row">
+                <div class="event-row-label">Pictures only<small>50+ pictures on a drive</small></div>
+                <div class="event-row-price">GHS 800</div>
+              </div>
+              <div class="event-row">
+                <div class="event-row-label">Video only</div>
+                <div class="event-row-price">GHS 800</div>
+              </div>
+              <div class="event-row">
+                <div class="event-row-label">Pictures &amp; Video <span class="tag">+ 1 Frame 16×20</span></div>
+                <div class="event-row-price">GHS 1,500</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Funeral -->
+          <div class="event-card">
+            <div class="event-card-head">
+              <h3>🕊️ Funeral</h3>
+              <p>Dignified coverage packages</p>
+            </div>
+            <div class="event-rows">
+              <div class="event-row"><div class="event-row-label">One Day</div><div class="event-row-price">GHS 1,500</div></div>
+              <div class="event-row"><div class="event-row-label">One Day <span class="tag">+ Photobook</span></div><div class="event-row-price">GHS 2,000</div></div>
+              <div class="event-row"><div class="event-row-label">One Day <span class="tag">+ Drone</span> <span class="tag">+ Photobook</span></div><div class="event-row-price">GHS 2,500</div></div>
+              <div class="event-row"><div class="event-row-label">Two Days</div><div class="event-row-price">GHS 2,500</div></div>
+              <div class="event-row"><div class="event-row-label">Two Days <span class="tag">+ Photobook</span></div><div class="event-row-price">GHS 3,000</div></div>
+              <div class="event-row"><div class="event-row-label">Two Days <span class="tag">+ Drone</span> <span class="tag">+ Photobook</span></div><div class="event-row-price">GHS 3,500</div></div>
+              <div class="event-row"><div class="event-row-label">Three Days</div><div class="event-row-price">GHS 3,000</div></div>
+              <div class="event-row"><div class="event-row-label">Three Days <span class="tag">+ Photobook</span></div><div class="event-row-price">GHS 3,500</div></div>
+              <div class="event-row"><div class="event-row-label">Three Days <span class="tag">+ Drone</span> <span class="tag">+ Photobook</span></div><div class="event-row-price">GHS 4,000</div></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ═══ WEDDING ═══ -->
+      <div style="margin-bottom:64px;">
+        <div class="section-divider"><h2>💍 Wedding Ceremony</h2><div class="div-line"></div></div>
+        <div class="event-grid">
+
+          <!-- Engagement Only -->
+          <div class="event-card">
+            <div class="event-card-head">
+              <h3>💞 Engagement Only</h3>
+              <p>Engagement ceremony packages</p>
+            </div>
+            <div class="event-rows">
+              <div class="event-row">
+                <div class="event-row-label">Pictures only<small>50+ pictures on a drive</small></div>
+                <div class="event-row-price">GHS 1,000</div>
+              </div>
+              <div class="event-row">
+                <div class="event-row-label">Pictures &amp; Video</div>
+                <div class="event-row-price">GHS 1,800</div>
+              </div>
+              <div class="event-row">
+                <div class="event-row-label">Full Package<small>Photobook, 1 Frame, Reels, Thank You Flyer</small></div>
+                <div class="event-row-price">GHS 2,700</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Engagement + Wedding Same Day -->
+          <div class="event-card">
+            <div class="event-card-head">
+              <h3>💒 Engagement &amp; Wedding — Same Day</h3>
+              <p>Both ceremonies in one day</p>
+            </div>
+            <div class="event-rows">
+              <div class="event-row">
+                <div class="event-row-label">Pictures only<small>50+ pictures on a drive</small></div>
+                <div class="event-row-price">GHS 1,500</div>
+              </div>
+              <div class="event-row">
+                <div class="event-row-label">Pictures &amp; Video</div>
+                <div class="event-row-price">GHS 2,200</div>
+              </div>
+              <div class="event-row">
+                <div class="event-row-label">Full Package<small>Photobook, 1 Frame, Reels, Thank You Flyer</small></div>
+                <div class="event-row-price">GHS 3,300</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Engagement + Wedding Two Days -->
+          <div class="event-card">
+            <div class="event-card-head">
+              <h3>💒 Engagement &amp; Wedding — Two Days</h3>
+              <p>Separate days for each ceremony</p>
+            </div>
+            <div class="event-rows">
+              <div class="event-row">
+                <div class="event-row-label">Pictures only<small>50+ pictures on a drive</small></div>
+                <div class="event-row-price">GHS 2,000</div>
+              </div>
+              <div class="event-row">
+                <div class="event-row-label">Pictures &amp; Video</div>
+                <div class="event-row-price">GHS 2,500</div>
+              </div>
+              <div class="event-row">
+                <div class="event-row-label">Full Package<small>Photobook, 2 Frames, Reels, Thank You Flyer</small></div>
+                <div class="event-row-price">GHS 3,700</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Eng + Wedding + Reception -->
+          <div class="event-card">
+            <div class="event-card-head">
+              <h3>👑 Engagement, Wedding &amp; Reception</h3>
+              <p>Full wedding coverage</p>
+            </div>
+            <div class="event-rows">
+              <div class="event-row"><div class="event-row-label">Pictures only <small>2 Days</small></div><div class="event-row-price">GHS 2,500</div></div>
+              <div class="event-row"><div class="event-row-label">Pictures only <small>3 Days</small></div><div class="event-row-price">GHS 2,800</div></div>
+              <div class="event-row"><div class="event-row-label">Pictures &amp; Video <small>2 Days</small></div><div class="event-row-price">GHS 3,000</div></div>
+              <div class="event-row"><div class="event-row-label">Pictures &amp; Video <small>3 Days</small></div><div class="event-row-price">GHS 3,300</div></div>
+              <div class="event-row">
+                <div class="event-row-label">Full Package <small>1 Day — Photobook, 1 Frame, Reels, Thank You Flyer</small></div>
+                <div class="event-row-price">GHS 3,500</div>
+              </div>
+              <div class="event-row">
+                <div class="event-row-label">Full Package <small>2 Days — Photobook, 2 Frames, Reels, Thank You Flyer</small></div>
+                <div class="event-row-price">GHS 3,700</div>
+              </div>
+              <div class="event-row">
+                <div class="event-row-label">Full Package <small>3 Days — Photobook, 3 Frames, Reels, Thank You Flyer</small></div>
+                <div class="event-row-price">GHS 4,000</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Thanksgiving -->
+          <div class="event-card">
+            <div class="event-card-head">
+              <h3>🙏 Thanksgiving</h3>
+              <p>Church &amp; thanksgiving service coverage</p>
+            </div>
+            <div class="event-rows">
+              <div class="event-row"><div class="event-row-label">Pictures only</div><div class="event-row-price">GHS 300</div></div>
+              <div class="event-row"><div class="event-row-label">Pictures &amp; Video</div><div class="event-row-price">GHS 800</div></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-cta">
+    <div class="container">
+      <h2>Ready to Book?</h2>
+      <p>No payment needed upfront — just send your request and we'll confirm within 24–48 hours.</p>
+      <div class="cta-btns">
+        <a href="booking.html" class="btn btn-primary">Book a Session</a>
+        <a href="contact.html" class="btn btn-outline">Ask a Question</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo"><span class="brand">LEnz</span><span class="sub">of KVee</span></div>
+        <p>Premium photography studio capturing your most meaningful moments.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="packages.html">Packages</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="booking.html">Book a Session</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Get in Touch</h4>
+        <ul class="footer-contact">
+          <li><span class="ic">✉</span> lenzofkvee@gmail.com</li>
+          <li><span class="ic">📞</span> +233 XX XXX XXXX</li>
+          <li><span class="ic">📍</span> Accra, Ghana</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span class="yr"></span> LEnz of KVee Photography. All rights reserved.</p>
+      <p>Capturing moments, crafting memories.</p>
+    </div>
+  </div>
+</footer>
+<script>
+  function toggleMenu(){ document.getElementById('mobileMenu').classList.toggle('open'); }
+  document.querySelectorAll('.yr').forEach(el => el.textContent = new Date().getFullYear());
+</script>
+</body>
+</html>

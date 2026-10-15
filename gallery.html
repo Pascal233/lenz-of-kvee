@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gallery | LEnz of KVee Photography</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><span class="brand">LEnz</span><span class="sub">of KVee</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="packages.html">Packages</a>
+      <a href="gallery.html" class="active">Gallery</a>
+      <a href="contact.html">Contact</a>
+      <a href="booking.html" class="btn-nav">Book a Session</a>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="services.html">Services</a>
+  <a href="packages.html">Packages</a>
+  <a href="gallery.html" class="active">Gallery</a>
+  <a href="contact.html">Contact</a>
+  <a href="booking.html" class="btn-nav">Book a Session</a>
+</div>
+
+<main>
+  <div class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Our Work</span>
+      <h1>Gallery</h1>
+      <p class="lead">A glimpse into the stories we've captured. Each frame is a moment preserved with intention.</p>
+    </div>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <div class="container">
+      <div class="filter-inner" role="group" aria-label="Filter gallery">
+        <button class="filter-btn active" data-cat="All">All</button>
+        <button class="filter-btn" data-cat="Portraits">Portraits</button>
+        <button class="filter-btn" data-cat="Weddings">Weddings</button>
+        <button class="filter-btn" data-cat="Families">Families</button>
+        <button class="filter-btn" data-cat="Headshots">Headshots</button>
+        <button class="filter-btn" data-cat="Commercial">Commercial</button>
+      </div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="gallery-grid" id="galleryGrid">
+        <!-- Items injected by JS -->
+      </div>
+      <div class="gallery-empty" id="galleryEmpty">No items in this category yet.</div>
+
+      <!-- Upload notice -->
+      <div class="gallery-upload-note">
+        <svg width="40" height="40" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="opacity:.3; margin:0 auto 8px; display:block;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        <p style="color:var(--muted); font-weight:600;">Add Your Photos Here</p>
+        <p>Place your images in a <code>gallery/</code> folder and update the <code>galleryItems</code> array in this file to display them. Replace the placeholder items with your real photos.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-cta">
+    <div class="container">
+      <h2>Love What You See?</h2>
+      <p>Book a session and let's create your story together.</p>
+      <a href="booking.html" class="btn btn-primary">Book a Session</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo"><span class="brand">LEnz</span><span class="sub">of KVee</span></div>
+        <p>Premium photography studio capturing your most meaningful moments.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="packages.html">Packages</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="booking.html">Book a Session</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Get in Touch</h4>
+        <ul class="footer-contact">
+          <li><span class="ic">✉</span> lenzofkvee@gmail.com</li>
+          <li><span class="ic">📞</span> +233 XX XXX XXXX</li>
+          <li><span class="ic">📍</span> Accra, Ghana</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span class="yr"></span> LEnz of KVee Photography. All rights reserved.</p>
+      <p>Capturing moments, crafting memories.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){ document.getElementById('mobileMenu').classList.toggle('open'); }
+document.querySelectorAll('.yr').forEach(el => el.textContent = new Date().getFullYear());
+
+// ── GALLERY DATA ──────────────────────────────────────────────────
+// To add real photos: replace null with the image path e.g. "gallery/my-photo.jpg"
+// To add more items: copy a block and add to the array
+const galleryItems = [
+  { id:1,  cat:'Portraits',   title:'Editorial Portrait',    aspect:'tall',   src:null },
+  { id:2,  cat:'Weddings',    title:'Wedding Day',           aspect:'wide',   src:null },
+  { id:3,  cat:'Families',    title:'Family Session',        aspect:'square', src:null },
+  { id:4,  cat:'Headshots',   title:'Corporate Headshot',    aspect:'square', src:null },
+  { id:5,  cat:'Portraits',   title:'Creative Portrait',     aspect:'wide',   src:null },
+  { id:6,  cat:'Commercial',  title:'Product Shoot',         aspect:'square', src:null },
+  { id:7,  cat:'Weddings',    title:'Bride & Groom',         aspect:'tall',   src:null },
+  { id:8,  cat:'Families',    title:'Outdoor Family',        aspect:'wide',   src:null },
+  { id:9,  cat:'Headshots',   title:'Professional Headshot', aspect:'square', src:null },
+  { id:10, cat:'Portraits',   title:'Studio Portrait',       aspect:'tall',   src:null },
+  { id:11, cat:'Commercial',  title:'Brand Campaign',        aspect:'wide',   src:null },
+  { id:12, cat:'Weddings',    title:'Reception Moment',      aspect:'square', src:null },
+];
+// ──────────────────────────────────────────────────────────────────
+
+const aspectH = { tall:'320px', wide:'220px', square:'270px' };
+
+function renderGallery(cat){
+  const grid = document.getElementById('galleryGrid');
+  const empty = document.getElementById('galleryEmpty');
+  const filtered = cat === 'All' ? galleryItems : galleryItems.filter(i => i.cat === cat);
+  if(filtered.length === 0){
+    grid.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  grid.innerHTML = filtered.map(item => `
+    <div class="gallery-item" data-cat="${item.cat}" style="height:${aspectH[item.aspect] || '260px'}">
+      <div class="gallery-placeholder" style="height:100%;">
+        ${item.src
+          ? `<img src="${item.src}" alt="${item.title}" style="width:100%;height:100%;object-fit:cover;"/>`
+          : `<svg width="36" height="36" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                 d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+             </svg>
+             <span>${item.title}</span>`
+        }
+      </div>
+      <div class="gallery-overlay">
+        <span class="cat-tag">${item.cat}</span>
+        <span class="img-title">${item.title}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+// Filter buttons
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    renderGallery(this.dataset.cat);
+  });
+});
+
+renderGallery('All');
+</script>
+</body>
+</html>

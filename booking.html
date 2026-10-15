@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book a Session | LEnz of KVee Photography</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><span class="brand">LEnz</span><span class="sub">of KVee</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="packages.html">Packages</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact</a>
+      <a href="booking.html" class="btn-nav active">Book a Session</a>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="services.html">Services</a>
+  <a href="packages.html">Packages</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="contact.html">Contact</a>
+  <a href="booking.html" class="btn-nav">Book a Session</a>
+</div>
+
+<main>
+  <div class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Reserve Your Session</span>
+      <h1>Book a Session</h1>
+      <p class="lead">Fill in the form and we'll reach out within 24–48 hours to confirm. No payment required at this stage.</p>
+    </div>
+  </div>
+
+  <div class="info-strip">
+    <span>📅 Choose your preferred date &amp; time</span>
+    <span>✉️ We confirm within 24–48 hrs</span>
+    <span>💬 No payment needed to book</span>
+  </div>
+
+  <section style="padding:0 0 64px;">
+    <div class="container">
+      <div class="booking-layout">
+
+        <!-- SIDEBAR -->
+        <div class="booking-sidebar">
+          <div class="sidebar-card">
+            <h3>Session Info</h3>
+            <div class="sidebar-info">
+              <div class="s-info-row">
+                <div class="s-info-icon">✉️</div>
+                <div><div class="s-info-label">Email</div><div class="s-info-val">lenzofkvee@gmail.com</div></div>
+              </div>
+              <div class="s-info-row">
+                <div class="s-info-icon">📞</div>
+                <div><div class="s-info-label">Phone</div><div class="s-info-val">+233 XX XXX XXXX</div></div>
+              </div>
+              <div class="s-info-row">
+                <div class="s-info-icon">📍</div>
+                <div><div class="s-info-label">Location</div><div class="s-info-val">Accra, Ghana</div></div>
+              </div>
+              <div class="s-info-row">
+                <div class="s-info-icon">🕐</div>
+                <div><div class="s-info-label">Studio Hours</div><div class="s-info-val">Mon–Sat: 8AM – 6PM<br/>Sun: Appointment only</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="sidebar-card" style="background:rgba(201,168,76,.05); border-color:rgba(201,168,76,.2);">
+            <p style="font-size:.85rem; color:var(--muted); line-height:1.6;">This is a <strong style="color:var(--text)">booking request</strong> only. We will confirm your session availability and details within 24–48 hours. No payment is collected online.</p>
+          </div>
+        </div>
+
+        <!-- FORM -->
+        <div>
+          <!-- SUCCESS STATE -->
+          <div class="success-state" id="successState">
+            <div class="success-icon">✓</div>
+            <h2>Booking Request Received!</h2>
+            <p id="successMsg">Your request has been submitted. We'll get back to you within 24–48 hours to confirm your session.</p>
+            <a href="index.html" class="btn btn-primary" style="margin-top:8px;">Back to Home</a>
+          </div>
+
+          <!-- FORM -->
+          <form class="booking-form" id="bookingForm" novalidate>
+
+            <!-- 01 Personal Info -->
+            <div class="form-section">
+              <div class="form-legend"><span class="num">01</span><div class="leg-line"></div><span>Personal Information</span><div class="leg-line"></div></div>
+              <div class="form-grid cols2">
+                <div class="form-group" id="grp-firstName">
+                  <label for="firstName">First Name <span class="req">*</span></label>
+                  <input type="text" id="firstName" name="firstName" placeholder="e.g. Kwame"/>
+                  <span class="form-error">First name is required.</span>
+                </div>
+                <div class="form-group" id="grp-lastName">
+                  <label for="lastName">Last Name <span class="req">*</span></label>
+                  <input type="text" id="lastName" name="lastName" placeholder="e.g. Mensah"/>
+                  <span class="form-error">Last name is required.</span>
+                </div>
+                <div class="form-group" id="grp-email">
+                  <label for="email">Email Address <span class="req">*</span></label>
+                  <input type="email" id="email" name="email" placeholder="you@example.com"/>
+                  <span class="form-error" id="emailErr">Email is required.</span>
+                </div>
+                <div class="form-group" id="grp-phone">
+                  <label for="phone">Phone Number <span class="req">*</span></label>
+                  <input type="tel" id="phone" name="phone" placeholder="+233 XX XXX XXXX"/>
+                  <span class="form-error">Phone number is required.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 02 Session Details -->
+            <div class="form-section">
+              <div class="form-legend"><span class="num">02</span><div class="leg-line"></div><span>Session Details</span><div class="leg-line"></div></div>
+              <div class="form-grid cols2">
+                <div class="form-group" id="grp-sessionType">
+                  <label for="sessionType">Session Type <span class="req">*</span></label>
+                  <select id="sessionType" name="sessionType">
+                    <option value="">Select a session type</option>
+                    <optgroup label="Photoshoots">
+                      <option value="Studio Shoot – Kids">Studio Shoot – Kids</option>
+                      <option value="Outdoor Shoot – Kids">Outdoor Shoot – Kids</option>
+                      <option value="Studio Shoot – Adult">Studio Shoot – Adult</option>
+                      <option value="Outdoor Shoot – Adult">Outdoor Shoot – Adult</option>
+                    </optgroup>
+                    <optgroup label="Birthday Shoots">
+                      <option value="Studio Birthday – Kids">Studio Birthday Shoot – Kids</option>
+                      <option value="Outdoor Birthday – Kids">Outdoor Birthday Shoot – Kids</option>
+                      <option value="Studio Birthday – Adult">Studio Birthday Shoot – Adult</option>
+                      <option value="Outdoor Birthday – Adult">Outdoor Birthday Shoot – Adult</option>
+                    </optgroup>
+                    <optgroup label="Events">
+                      <option value="Naming Ceremony / Birthday Party">Naming Ceremony / Birthday Party</option>
+                      <option value="Funeral">Funeral</option>
+                      <option value="Thanksgiving">Thanksgiving</option>
+                    </optgroup>
+                    <optgroup label="Wedding">
+                      <option value="Engagement Only">Engagement Only</option>
+                      <option value="Engagement & Wedding – Same Day">Engagement &amp; Wedding – Same Day</option>
+                      <option value="Engagement & Wedding – Two Days">Engagement &amp; Wedding – Two Days</option>
+                      <option value="Engagement, Wedding & Reception">Engagement, Wedding &amp; Reception</option>
+                    </optgroup>
+                    <option value="Other / Not Sure">Other / Not Sure</option>
+                  </select>
+                  <span class="form-error">Please select a session type.</span>
+                </div>
+                <div class="form-group">
+                  <label for="packageName">Package Interest <span class="opt">(optional)</span></label>
+                  <input type="text" id="packageName" name="packageName" placeholder="e.g. Standard, Classic, Brand…"/>
+                </div>
+                <div class="form-group">
+                  <label for="numberOfPeople">Number of People</label>
+                  <input type="number" id="numberOfPeople" name="numberOfPeople" min="1" max="50" value="1"/>
+                </div>
+                <div class="form-group">
+                  <label for="location">Preferred Location <span class="opt">(optional)</span></label>
+                  <input type="text" id="location" name="location" placeholder="Studio / Outdoor / Your venue…"/>
+                </div>
+              </div>
+            </div>
+
+            <!-- 03 Date & Time -->
+            <div class="form-section">
+              <div class="form-legend"><span class="num">03</span><div class="leg-line"></div><span>Date &amp; Time</span><div class="leg-line"></div></div>
+              <div class="form-grid cols3">
+                <div class="form-group" id="grp-preferredDate">
+                  <label for="preferredDate">Preferred Date <span class="req">*</span></label>
+                  <input type="date" id="preferredDate" name="preferredDate"/>
+                  <span class="form-error">Please choose a date.</span>
+                </div>
+                <div class="form-group">
+                  <label for="alternateDate">Alternate Date <span class="opt">(optional)</span></label>
+                  <input type="date" id="alternateDate" name="alternateDate"/>
+                </div>
+                <div class="form-group" id="grp-preferredTime">
+                  <label for="preferredTime">Preferred Time <span class="req">*</span></label>
+                  <select id="preferredTime" name="preferredTime">
+                    <option value="">Select a time</option>
+                    <option>8:00 AM</option><option>9:00 AM</option><option>10:00 AM</option>
+                    <option>11:00 AM</option><option>12:00 PM</option><option>1:00 PM</option>
+                    <option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option>
+                    <option>5:00 PM</option>
+                  </select>
+                  <span class="form-error">Please choose a time.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 04 Additional Info -->
+            <div class="form-section">
+              <div class="form-legend"><span class="num">04</span><div class="leg-line"></div><span>Additional Information</span><div class="leg-line"></div></div>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="specialRequests">Special Requests or Notes <span class="opt">(optional)</span></label>
+                  <textarea id="specialRequests" name="specialRequests" rows="4" placeholder="Tell us about your vision, themes, specific shots, or anything we should know…"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="heardAbout">How did you hear about us? <span class="opt">(optional)</span></label>
+                  <select id="heardAbout" name="heardAbout">
+                    <option value="">Select an option</option>
+                    <option>Instagram</option>
+                    <option>Facebook</option>
+                    <option>Google</option>
+                    <option>Referral from a friend</option>
+                    <option>Website</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Terms -->
+            <div class="form-group" id="grp-terms">
+              <div class="terms-row">
+                <input type="checkbox" id="agreeTerms" name="agreeTerms"/>
+                <span>I understand this is a booking <strong>request</strong> and not a confirmed booking. LEnz of KVee will contact me within 24–48 hours to confirm availability and session details. <span class="req">*</span></span>
+              </div>
+              <span class="form-error" style="margin-left:26px;">You must agree to continue.</span>
+            </div>
+
+            <div>
+              <button type="submit" class="submit-btn" id="submitBtn">
+                <span id="btnText">Submit Booking Request</span>
+              </button>
+              <p class="form-note">We'll respond within 24–48 hours. No payment required at this stage.</p>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-cta" style="padding:40px 0;">
+    <div class="container">
+      <p style="color:var(--dim); font-size:.9rem;">Have questions before booking? <a href="contact.html" style="color:var(--gold);">Contact us directly →</a></p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo"><span class="brand">LEnz</span><span class="sub">of KVee</span></div>
+        <p>Premium photography studio capturing your most meaningful moments.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="packages.html">Packages</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="booking.html">Book a Session</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Get in Touch</h4>
+        <ul class="footer-contact">
+          <li><span class="ic">✉</span> lenzofkvee@gmail.com</li>
+          <li><span class="ic">📞</span> +233 XX XXX XXXX</li>
+          <li><span class="ic">📍</span> Accra, Ghana</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span class="yr"></span> LEnz of KVee Photography. All rights reserved.</p>
+      <p>Capturing moments, crafting memories.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){ document.getElementById('mobileMenu').classList.toggle('open'); }
+document.querySelectorAll('.yr').forEach(el => el.textContent = new Date().getFullYear());
+
+// Pre-fill from URL params (coming from packages page)
+const params = new URLSearchParams(window.location.search);
+if(params.get('service')) document.getElementById('sessionType').value = params.get('service');
+if(params.get('package')) document.getElementById('packageName').value = params.get('package');
+
+// Set min date to today
+const today = new Date().toISOString().split('T')[0];
+document.getElementById('preferredDate').min = today;
+document.getElementById('alternateDate').min = today;
+
+// Validation helpers
+function setError(grpId, msg){
+  const g = document.getElementById(grpId);
+  if(!g) return;
+  g.classList.add('has-error');
+  if(msg){ const e = g.querySelector('.form-error'); if(e) e.textContent = msg; }
+}
+function clearError(grpId){
+  const g = document.getElementById(grpId);
+  if(g) g.classList.remove('has-error');
+}
+
+// Clear errors on input
+['firstName','lastName','email','phone','sessionType','preferredDate','preferredTime'].forEach(id => {
+  const el = document.getElementById(id);
+  if(el) el.addEventListener('input', () => clearError('grp-'+id));
+  if(el) el.addEventListener('change', () => clearError('grp-'+id));
+});
+document.getElementById('agreeTerms').addEventListener('change', () => clearError('grp-terms'));
+
+document.getElementById('bookingForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  let valid = true;
+
+  const fn = document.getElementById('firstName').value.trim();
+  const ln = document.getElementById('lastName').value.trim();
+  const em = document.getElementById('email').value.trim();
+  const ph = document.getElementById('phone').value.trim();
+  const st = document.getElementById('sessionType').value;
+  const pd = document.getElementById('preferredDate').value;
+  const pt = document.getElementById('preferredTime').value;
+  const ag = document.getElementById('agreeTerms').checked;
+
+  if(!fn){ setError('grp-firstName'); valid=false; }
+  if(!ln){ setError('grp-lastName'); valid=false; }
+  if(!em){ setError('grp-email','Email is required.'); valid=false; }
+  else if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){ setError('grp-email','Please enter a valid email.'); document.getElementById('emailErr').textContent='Please enter a valid email.'; valid=false; }
+  if(!ph){ setError('grp-phone'); valid=false; }
+  if(!st){ setError('grp-sessionType'); valid=false; }
+  if(!pd){ setError('grp-preferredDate'); valid=false; }
+  if(!pt){ setError('grp-preferredTime'); valid=false; }
+  if(!ag){ setError('grp-terms'); valid=false; }
+
+  if(!valid) return;
+
+  // Simulate submission
+  const btn = document.getElementById('submitBtn');
+  const txt = document.getElementById('btnText');
+  btn.disabled = true;
+  txt.textContent = 'Submitting…';
+
+  setTimeout(() => {
+    document.getElementById('bookingForm').style.display = 'none';
+    const s = document.getElementById('successState');
+    s.classList.add('show');
+    document.getElementById('successMsg').textContent =
+      'Thank you, ' + fn + '! Your ' + st + ' booking request has been submitted. We\'ll get back to you within 24–48 hours.';
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }, 1500);
+});
+</script>
+</body>
+</html>
