@@ -44,11 +44,11 @@
     <div class="container">
       <div class="filter-inner" role="group" aria-label="Filter gallery">
         <button class="filter-btn active" data-cat="All">All</button>
-        <button class="filter-btn" data-cat="Portraits">Portraits</button>
         <button class="filter-btn" data-cat="Weddings">Weddings</button>
-        <button class="filter-btn" data-cat="Families">Families</button>
-        <button class="filter-btn" data-cat="Headshots">Headshots</button>
-        <button class="filter-btn" data-cat="Commercial">Commercial</button>
+        <button class="filter-btn" data-cat="Birthdays">Birthdays</button>
+        <button class="filter-btn" data-cat="Kids">Kids</button>
+        <button class="filter-btn" data-cat="Portraits">Portraits</button>
+        <button class="filter-btn" data-cat="Funerals">Funerals</button>
       </div>
     </div>
   </div>
@@ -60,12 +60,7 @@
       </div>
       <div class="gallery-empty" id="galleryEmpty">No items in this category yet.</div>
 
-      <!-- Upload notice -->
-      <div class="gallery-upload-note">
-        <svg width="40" height="40" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="opacity:.3; margin:0 auto 8px; display:block;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-        <p style="color:var(--muted); font-weight:600;">Add Your Photos Here</p>
-        <p>Place your images in a <code>gallery/</code> folder and update the <code>galleryItems</code> array in this file to display them. Replace the placeholder items with your real photos.</p>
-      </div>
+    
     </div>
   </section>
 
@@ -117,21 +112,45 @@ function toggleMenu(){ document.getElementById('mobileMenu').classList.toggle('o
 document.querySelectorAll('.yr').forEach(el => el.textContent = new Date().getFullYear());
 
 // ── GALLERY DATA ──────────────────────────────────────────────────
-// To add real photos: replace null with the image path e.g. "gallery/my-photo.jpg"
-// To add more items: copy a block and add to the array
 const galleryItems = [
-  { id:1,  cat:'Portraits',   title:'Editorial Portrait',    aspect:'tall',   src:null },
-  { id:2,  cat:'Weddings',    title:'Wedding Day',           aspect:'wide',   src:null },
-  { id:3,  cat:'Families',    title:'Family Session',        aspect:'square', src:null },
-  { id:4,  cat:'Headshots',   title:'Corporate Headshot',    aspect:'square', src:null },
-  { id:5,  cat:'Portraits',   title:'Creative Portrait',     aspect:'wide',   src:null },
-  { id:6,  cat:'Commercial',  title:'Product Shoot',         aspect:'square', src:null },
-  { id:7,  cat:'Weddings',    title:'Bride & Groom',         aspect:'tall',   src:null },
-  { id:8,  cat:'Families',    title:'Outdoor Family',        aspect:'wide',   src:null },
-  { id:9,  cat:'Headshots',   title:'Professional Headshot', aspect:'square', src:null },
-  { id:10, cat:'Portraits',   title:'Studio Portrait',       aspect:'tall',   src:null },
-  { id:11, cat:'Commercial',  title:'Brand Campaign',        aspect:'wide',   src:null },
-  { id:12, cat:'Weddings',    title:'Reception Moment',      aspect:'square', src:null },
+  // WEDDINGS
+  { id:1,  cat:'Weddings',   title:'Kente Pre-Wedding Shoot',      aspect:'tall',   src:'images/Kente pre-wedding photoshoot.jpg' },
+  { id:2,  cat:'Weddings',   title:'Outdoor Wedding in Ghana',     aspect:'wide',   src:'images/Rama & Kwame Did Melt our Hearts with their Outdoor Wedding in Ghana.jpg' },
+  { id:3,  cat:'Weddings',   title:'Tiklah Wedding',               aspect:'square', src:'images/Tiklah wedding.jpg' },
+  { id:4,  cat:'Weddings',   title:'Couple Goals',                 aspect:'tall',   src:'images/Couple goals.jpg' },
+  { id:5,  cat:'Weddings',   title:'African Couple',               aspect:'wide',   src:'images/African couple.jpg' },
+
+  // BIRTHDAYS
+  { id:6,  cat:'Birthdays',  title:'Birthday Photoshoot',          aspect:'tall',   src:'images/Birthday Photoshoot.jpg' },
+  { id:7,  cat:'Birthdays',  title:'Birthday Photoshoot II',       aspect:'wide',   src:'images/Birthday Photoshoot (1).jpg' },
+  { id:8,  cat:'Birthdays',  title:'Birthday Portrait',            aspect:'square', src:'images/Birthday portrait.jpg' },
+  { id:9,  cat:'Birthdays',  title:'Birthday Dress',               aspect:'tall',   src:'images/birthday dress.jpg' },
+  { id:10, cat:'Birthdays',  title:'Dreamy Birthday Picnic',       aspect:'wide',   src:'images/Dreamy Birthday Picnic✨_ Soft Life in Bloom🤍.jpg' },
+  { id:11, cat:'Birthdays',  title:'Picnic Birthday Shoot',        aspect:'square', src:'images/Picnic birthday shoot.jpg' },
+  { id:12, cat:'Birthdays',  title:'Birthday Shoot Inspiration',   aspect:'tall',   src:'images/Ideias de Ensaio de Aniversário ✨ Inspiração Feminina aos 22.jpg' },
+
+  // KIDS
+  { id:13, cat:'Kids',       title:'1st Birthday Baby Girl',       aspect:'tall',   src:'images/1st birthday baby girl.jpg' },
+  { id:14, cat:'Kids',       title:'First Birthday',               aspect:'wide',   src:'images/First birthday.jpg' },
+
+  // FUNERALS
+  { id:15, cat:'Funerals',   title:'Asante Tribe Funeral',         aspect:'wide',   src:'images/Asante Tribe Funeral.jpg' },
+  { id:16, cat:'Funerals',   title:'Ghanaian Funeral Attire',      aspect:'tall',   src:'images/Ghanaian Funeral Attire.jpg' },
+
+  // PORTRAITS
+  { id:17, cat:'Portraits',  title:'Black Outfit Studio',          aspect:'tall',   src:'images/Black Outfit.jpg' },
+  { id:18, cat:'Portraits',  title:'Portrait Session',             aspect:'wide',   src:'images/download (9).jpg' },
+  { id:19, cat:'Portraits',  title:'Portrait Session',             aspect:'square', src:'images/download (10).jpg' },
+  { id:20, cat:'Portraits',  title:'Portrait Session',             aspect:'tall',   src:'images/download (11).jpg' },
+  { id:21, cat:'Portraits',  title:'Portrait Session',             aspect:'wide',   src:'images/download (12).jpg' },
+  { id:22, cat:'Portraits',  title:'Portrait Session',             aspect:'square', src:'images/download (13).jpg' },
+  { id:23, cat:'Portraits',  title:'Portrait Session',             aspect:'tall',   src:'images/download (14).jpg' },
+  { id:24, cat:'Portraits',  title:'Portrait Session',             aspect:'wide',   src:'images/download (15).jpg' },
+  { id:25, cat:'Portraits',  title:'Portrait Session',             aspect:'square', src:'images/download (16).jpg' },
+  { id:26, cat:'Portraits',  title:'Portrait Session',             aspect:'tall',   src:'images/download (17).jpg' },
+  { id:27, cat:'Portraits',  title:'Portrait Session',             aspect:'wide',   src:'images/download (18).jpg' },
+  { id:28, cat:'Portraits',  title:'Portrait Session',             aspect:'square', src:'images/download (19).jpg' },
+  { id:29, cat:'Portraits',  title:'Portrait Session',             aspect:'tall',   src:'images/download (20).jpg' },
 ];
 // ──────────────────────────────────────────────────────────────────
 
