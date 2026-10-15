@@ -371,6 +371,26 @@ document.getElementById('bookingForm').addEventListener('submit', async function
     });
 
     if(res.ok){
+      // Save to dashboard localStorage
+      const existing = JSON.parse(localStorage.getItem('lokv_bookings') || '[]');
+      const newBooking = {
+        id: Date.now(),
+        firstName: fn, lastName: ln, email: em, phone: ph,
+        sessionType: st,
+        packageName: document.getElementById('packageName').value.trim(),
+        preferredDate: pd,
+        alternateDate: document.getElementById('alternateDate').value,
+        preferredTime: pt,
+        numberOfPeople: document.getElementById('numberOfPeople').value,
+        location: document.getElementById('location').value.trim(),
+        specialRequests: document.getElementById('specialRequests').value.trim(),
+        heardAbout: document.getElementById('heardAbout').value,
+        status: 'new',
+        createdAt: Date.now()
+      };
+      existing.push(newBooking);
+      localStorage.setItem('lokv_bookings', JSON.stringify(existing));
+
       document.getElementById('bookingForm').style.display = 'none';
       const s = document.getElementById('successState');
       s.classList.add('show');
