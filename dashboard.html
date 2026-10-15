@@ -7,105 +7,106 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #080808;
-      --bg2: #0e0e0e;
-      --card: #131313;
-      --card2: #181818;
-      --border: #222;
-      --border2: #2a2a2a;
-      --gold: #c9a84c;
-      --gold-light: #e8c87a;
-      --gold-dim: rgba(201,168,76,.12);
-      --gold-glow: rgba(201,168,76,.06);
-      --text: #f0f0f0;
-      --muted: #888;
-      --dim: #444;
-      --green: #4caf82;
-      --green-bg: rgba(76,175,130,.1);
-      --red: #e05555;
-      --red-bg: rgba(224,85,85,.1);
-      --blue: #5b8dee;
-      --blue-bg: rgba(91,141,238,.1);
-      --purple: #a78bfa;
-      --purple-bg: rgba(167,139,250,.1);
+      --bg: #080808; --bg2: #0e0e0e; --card: #131313; --card2: #181818;
+      --border: #222; --border2: #2a2a2a;
+      --gold: #c9a84c; --gold-light: #e8c87a; --gold-dim: rgba(201,168,76,.12); --gold-glow: rgba(201,168,76,.06);
+      --text: #f0f0f0; --muted: #888; --dim: #444;
+      --green: #4caf82; --green-bg: rgba(76,175,130,.1);
+      --red: #e05555;   --red-bg: rgba(224,85,85,.1);
+      --blue: #5b8dee;  --blue-bg: rgba(91,141,238,.1);
+      --purple: #a78bfa; --purple-bg: rgba(167,139,250,.1);
       --sidebar-w: 260px;
     }
     html { font-size: 15px; }
     body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; min-height: 100vh; display: flex; }
 
+    /* ── PIN SCREEN ── */
+    #pinScreen {
+      position: fixed; inset: 0; z-index: 1000;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+    }
+    #pinScreen.hidden { display: none; }
+    .pin-card {
+      width: 340px; background: var(--card); border: 1px solid var(--border2);
+      border-radius: 20px; padding: 40px 32px; text-align: center;
+      box-shadow: 0 0 60px rgba(201,168,76,.07);
+    }
+    .pin-logo { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 28px; }
+    .pin-logo-icon { width: 44px; height: 44px; background: var(--gold); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: .9rem; font-weight: 900; color: #000; }
+    .pin-logo-text .t1 { font-size: 1rem; font-weight: 800; color: var(--gold); letter-spacing: .15em; text-transform: uppercase; }
+    .pin-logo-text .t2 { font-size: .62rem; color: var(--muted); letter-spacing: .2em; text-transform: uppercase; }
+    .pin-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .pin-sub { font-size: .8rem; color: var(--muted); margin-bottom: 28px; }
+    .pin-dots { display: flex; justify-content: center; gap: 12px; margin-bottom: 28px; }
+    .pin-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--border2); background: transparent; transition: .2s; }
+    .pin-dot.filled { background: var(--gold); border-color: var(--gold); }
+    .pin-dot.error { background: var(--red); border-color: var(--red); }
+    .pin-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+    .pin-btn {
+      aspect-ratio: 1; border-radius: 12px; border: 1px solid var(--border2);
+      background: var(--card2); color: var(--text); font-size: 1.2rem; font-weight: 600;
+      cursor: pointer; transition: .15s; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+    }
+    .pin-btn:hover { background: var(--gold-dim); border-color: var(--gold); color: var(--gold); }
+    .pin-btn:active { transform: scale(.93); }
+    .pin-btn .sub { font-size: .5rem; letter-spacing: .1em; color: var(--dim); }
+    .pin-del { background: transparent; border: none; color: var(--muted); font-size: .9rem; cursor: pointer; padding: 8px 16px; border-radius: 8px; transition: .2s; }
+    .pin-del:hover { color: var(--gold); }
+    .pin-error { color: var(--red); font-size: .78rem; min-height: 20px; margin-top: 4px; }
+    .pin-shake { animation: shake .4s; }
+    @keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-6px)} 40%,80%{transform:translateX(6px)} }
+
     /* ── SIDEBAR ── */
     .sidebar {
       width: var(--sidebar-w); min-height: 100vh; background: var(--bg2);
       border-right: 1px solid var(--border); display: flex; flex-direction: column;
-      position: fixed; top: 0; left: 0; z-index: 100;
-      transition: transform .3s;
+      position: fixed; top: 0; left: 0; z-index: 100; transition: transform .3s;
     }
-    .sidebar-logo {
-      padding: 24px 20px 20px;
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; gap: 10px;
-    }
-    .logo-icon {
-      width: 38px; height: 38px; background: var(--gold); border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: .85rem; font-weight: 900; color: #000; letter-spacing: .05em;
-    }
+    .sidebar-logo { padding: 24px 20px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+    .logo-icon { width: 38px; height: 38px; background: var(--gold); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: .85rem; font-weight: 900; color: #000; }
     .logo-text .t1 { font-size: .95rem; font-weight: 800; color: var(--gold); letter-spacing: .15em; text-transform: uppercase; }
     .logo-text .t2 { font-size: .62rem; color: var(--muted); letter-spacing: .2em; text-transform: uppercase; }
     .sidebar-nav { flex: 1; padding: 16px 12px; display: flex; flex-direction: column; gap: 4px; overflow-y: auto; }
     .nav-section-label { font-size: .6rem; letter-spacing: .2em; text-transform: uppercase; color: var(--dim); padding: 12px 8px 6px; }
-    .nav-item {
-      display: flex; align-items: center; gap: 10px;
-      padding: 10px 12px; border-radius: 8px; cursor: pointer;
-      font-size: .875rem; color: var(--muted); transition: .2s;
-      border: none; background: none; width: 100%; text-align: left;
-    }
+    .nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; cursor: pointer; font-size: .875rem; color: var(--muted); transition: .2s; border: none; background: none; width: 100%; text-align: left; }
     .nav-item:hover { background: var(--card); color: var(--text); }
     .nav-item.active { background: var(--gold-dim); color: var(--gold); }
     .nav-item .nav-icon { font-size: 1rem; width: 20px; text-align: center; flex-shrink: 0; }
     .nav-item .badge { margin-left: auto; background: var(--gold); color: #000; font-size: .65rem; font-weight: 700; padding: 2px 7px; border-radius: 20px; }
-    .sidebar-footer { padding: 16px 12px; border-top: 1px solid var(--border); }
-    .sidebar-footer a { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 8px; font-size: .82rem; color: var(--muted); text-decoration: none; transition: .2s; }
-    .sidebar-footer a:hover { background: var(--card); color: var(--gold); }
+    .sidebar-footer { padding: 16px 12px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 4px; }
+    .sidebar-footer a, .sidebar-footer button { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 8px; font-size: .82rem; color: var(--muted); text-decoration: none; transition: .2s; background: none; border: none; cursor: pointer; width: 100%; }
+    .sidebar-footer a:hover, .sidebar-footer button:hover { background: var(--card); color: var(--gold); }
 
     /* ── MAIN ── */
     .main { margin-left: var(--sidebar-w); flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
-
-    /* ── TOPBAR ── */
-    .topbar {
-      height: 64px; border-bottom: 1px solid var(--border); background: var(--bg2);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 28px; position: sticky; top: 0; z-index: 50;
-    }
+    .topbar { height: 64px; border-bottom: 1px solid var(--border); background: var(--bg2); display: flex; align-items: center; justify-content: space-between; padding: 0 28px; position: sticky; top: 0; z-index: 50; }
     .topbar-left { display: flex; align-items: center; gap: 14px; }
     .hamburger-btn { display: none; background: none; border: none; cursor: pointer; color: var(--muted); font-size: 1.2rem; }
     .page-title { font-size: 1rem; font-weight: 700; }
     .page-subtitle { font-size: .75rem; color: var(--dim); margin-top: 1px; }
-    .topbar-right { display: flex; align-items: center; gap: 12px; }
-    .topbar-btn {
-      width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--border);
-      background: none; cursor: pointer; color: var(--muted); font-size: 1rem;
-      display: flex; align-items: center; justify-content: center; transition: .2s;
-    }
+    .topbar-right { display: flex; align-items: center; gap: 10px; }
+    .topbar-btn { width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--border); background: none; cursor: pointer; color: var(--muted); font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: .2s; }
     .topbar-btn:hover { border-color: var(--gold); color: var(--gold); }
     .topbar-btn.notif { position: relative; }
-    .notif-dot { position: absolute; top: 6px; right: 6px; width: 7px; height: 7px; background: var(--gold); border-radius: 50%; border: 2px solid var(--bg2); }
+    .notif-dot { position: absolute; top: 6px; right: 6px; width: 7px; height: 7px; background: var(--gold); border-radius: 50%; border: 2px solid var(--bg2); display: none; }
     .avatar { width: 36px; height: 36px; border-radius: 8px; background: var(--gold); color: #000; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: .8rem; cursor: pointer; }
     .site-link { display: flex; align-items: center; gap: 6px; font-size: .75rem; color: var(--muted); background: var(--card); border: 1px solid var(--border); padding: 6px 12px; border-radius: 6px; text-decoration: none; transition: .2s; }
     .site-link:hover { border-color: var(--gold); color: var(--gold); }
+    .sync-indicator { display: flex; align-items: center; gap: 6px; font-size: .72rem; color: var(--dim); }
+    .sync-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+    .sync-dot.syncing { background: var(--gold); animation: pulse 1s infinite; }
+    .sync-dot.error { background: var(--red); }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
 
     /* ── CONTENT ── */
-    .content { flex: 1; padding: 28px; overflow-y: auto; }
+    .content { flex: 1; padding: 28px; }
     .page { display: none; }
     .page.active { display: block; }
 
-    /* ── STAT CARDS ── */
-    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
-    .stat-card {
-      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
-      padding: 20px; display: flex; flex-direction: column; gap: 12px;
-      transition: border-color .2s;
-    }
+    /* ── STATS ── */
+    .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-bottom: 24px; }
+    .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 12px; transition: border-color .2s; }
     .stat-card:hover { border-color: var(--border2); }
     .stat-top { display: flex; align-items: flex-start; justify-content: space-between; }
     .stat-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
@@ -115,22 +116,22 @@
     .stat-val { font-size: 1.8rem; font-weight: 800; line-height: 1; }
     .stat-label { font-size: .75rem; color: var(--muted); }
 
-    /* ── SECTION HEADER ── */
-    .section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    /* ── SECTION HEAD ── */
+    .section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
     .section-head h2 { font-size: 1rem; font-weight: 700; }
-    .section-head .sh-right { display: flex; align-items: center; gap: 8px; }
-    .filter-tabs { display: flex; gap: 4px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 3px; }
+    .sh-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .filter-tabs { display: flex; gap: 4px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 3px; flex-wrap: wrap; }
     .ftab { padding: 5px 12px; border-radius: 6px; font-size: .75rem; font-weight: 600; cursor: pointer; border: none; background: none; color: var(--muted); transition: .2s; }
     .ftab.active { background: var(--gold); color: #000; }
     .search-box { display: flex; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 7px 12px; }
     .search-box input { background: none; border: none; outline: none; color: var(--text); font-size: .8rem; width: 160px; }
     .search-box input::placeholder { color: var(--dim); }
-    .small-btn { padding: 7px 14px; border-radius: 7px; font-size: .75rem; font-weight: 600; cursor: pointer; transition: .2s; border: 1px solid var(--border); background: none; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+    .small-btn { padding: 7px 14px; border-radius: 7px; font-size: .75rem; font-weight: 600; cursor: pointer; transition: .2s; border: 1px solid var(--border); background: none; color: var(--muted); display: flex; align-items: center; gap: 6px; text-decoration: none; }
     .small-btn:hover { border-color: var(--gold); color: var(--gold); }
     .small-btn.gold { background: var(--gold); color: #000; border-color: var(--gold); }
     .small-btn.gold:hover { background: var(--gold-light); }
 
-    /* ── BOOKINGS TABLE ── */
+    /* ── TABLE ── */
     .table-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
     .bookings-table { width: 100%; border-collapse: collapse; }
     .bookings-table th { font-size: .68rem; letter-spacing: .15em; text-transform: uppercase; color: var(--dim); padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); background: var(--card2); font-weight: 600; white-space: nowrap; }
@@ -143,26 +144,23 @@
     .client-email { font-size: .72rem; color: var(--muted); }
     .status-badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 20px; font-size: .72rem; font-weight: 600; white-space: nowrap; }
     .status-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .8; }
-    .status-new     { background: var(--gold-dim);   color: var(--gold); }
-    .status-pending { background: var(--blue-bg);    color: var(--blue); }
-    .status-confirmed { background: var(--green-bg); color: var(--green); }
+    .status-new       { background: var(--gold-dim);  color: var(--gold); }
+    .status-pending   { background: var(--blue-bg);   color: var(--blue); }
+    .status-confirmed { background: var(--green-bg);  color: var(--green); }
     .status-completed { background: rgba(255,255,255,.06); color: var(--muted); }
-    .status-cancelled { background: var(--red-bg);   color: var(--red); }
+    .status-cancelled { background: var(--red-bg);    color: var(--red); }
     .action-btns { display: flex; gap: 6px; }
     .action-btn { width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--border); background: none; cursor: pointer; color: var(--muted); font-size: .85rem; display: flex; align-items: center; justify-content: center; transition: .2s; }
     .action-btn:hover { border-color: var(--gold); color: var(--gold); }
     .action-btn.danger:hover { border-color: var(--red); color: var(--red); }
     .table-empty { padding: 60px 20px; text-align: center; color: var(--dim); font-size: .875rem; }
-    .table-empty .empty-icon { font-size: 2.5rem; margin-bottom: 10px; }
-
-    /* ── PAGINATION ── */
-    .pagination { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-top: 1px solid var(--border); }
+    .pagination { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-top: 1px solid var(--border); flex-wrap: wrap; gap: 8px; }
     .page-info { font-size: .75rem; color: var(--muted); }
     .page-btns { display: flex; gap: 4px; }
     .page-btn { width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--border); background: none; cursor: pointer; color: var(--muted); font-size: .75rem; display: flex; align-items: center; justify-content: center; transition: .2s; }
     .page-btn:hover, .page-btn.active { border-color: var(--gold); color: var(--gold); }
 
-    /* ── DETAIL MODAL ── */
+    /* ── MODAL ── */
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.75); z-index: 200; display: none; align-items: center; justify-content: center; padding: 20px; }
     .modal-overlay.open { display: flex; }
     .modal { background: var(--card); border: 1px solid var(--border2); border-radius: 16px; width: 100%; max-width: 560px; max-height: 90vh; overflow-y: auto; }
@@ -177,27 +175,27 @@
     .detail-label { font-size: .65rem; letter-spacing: .15em; text-transform: uppercase; color: var(--dim); }
     .detail-val { font-size: .875rem; color: var(--text); font-weight: 500; }
     .detail-val.gold { color: var(--gold); }
-    .detail-full { grid-column: 1 / -1; }
     .modal-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-    .modal-status-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .modal-status-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
     .modal-status-row span { font-size: .78rem; color: var(--muted); }
     .status-btn { padding: 6px 14px; border-radius: 20px; font-size: .72rem; font-weight: 700; cursor: pointer; border: 1px solid; transition: .2s; }
-    .status-btn.new      { border-color: var(--gold);  color: var(--gold);  background: var(--gold-dim); }
-    .status-btn.pending  { border-color: var(--blue);  color: var(--blue);  background: var(--blue-bg); }
-    .status-btn.confirmed{ border-color: var(--green); color: var(--green); background: var(--green-bg); }
-    .status-btn.completed{ border-color: var(--dim);   color: var(--muted); background: rgba(255,255,255,.05); }
-    .status-btn.cancelled{ border-color: var(--red);   color: var(--red);   background: var(--red-bg); }
-    .status-btn:hover { opacity: .8; }
+    .status-btn.new       { border-color: var(--gold);  color: var(--gold);  background: var(--gold-dim); }
+    .status-btn.pending   { border-color: var(--blue);  color: var(--blue);  background: var(--blue-bg); }
+    .status-btn.confirmed { border-color: var(--green); color: var(--green); background: var(--green-bg); }
+    .status-btn.completed { border-color: var(--dim);   color: var(--muted); background: rgba(255,255,255,.05); }
+    .status-btn.cancelled { border-color: var(--red);   color: var(--red);   background: var(--red-bg); }
+    .status-btn.active-status { outline: 2px solid currentColor; outline-offset: 2px; }
     .notes-box { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: .82rem; color: var(--muted); font-style: italic; line-height: 1.6; }
 
-    /* ── DASHBOARD HOME ── */
+    /* ── DASHBOARD GRID ── */
     .dash-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-top: 20px; }
     .recent-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
     .card-head { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
     .card-head h3 { font-size: .9rem; font-weight: 700; }
-    .activity-list { padding: 8px 0; }
-    .activity-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 20px; border-bottom: 1px solid var(--border); }
+    .activity-list { }
+    .activity-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 20px; border-bottom: 1px solid var(--border); cursor: pointer; transition: background .2s; }
     .activity-item:last-child { border-bottom: none; }
+    .activity-item:hover { background: var(--card2); }
     .activity-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
     .activity-text { font-size: .82rem; color: var(--muted); line-height: 1.5; flex: 1; }
     .activity-text strong { color: var(--text); }
@@ -205,14 +203,15 @@
     .mini-stat-list { display: flex; flex-direction: column; gap: 12px; padding: 16px 20px; }
     .mini-stat { display: flex; align-items: center; justify-content: space-between; }
     .mini-stat-label { font-size: .8rem; color: var(--muted); display: flex; align-items: center; gap: 8px; }
-    .mini-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .mini-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
     .mini-stat-val { font-size: .9rem; font-weight: 700; }
     .progress-bar { height: 3px; background: var(--border); border-radius: 2px; margin-top: 4px; overflow: hidden; }
     .progress-fill { height: 100%; border-radius: 2px; }
 
     /* ── CALENDAR ── */
-    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
-    .cal-head { font-size: .65rem; text-transform: uppercase; letter-spacing: .1em; color: var(--dim); text-align: center; padding: 4px 0; }
+    .cal-wrap { display: grid; grid-template-columns: 320px 1fr; gap: 20px; align-items: start; }
+    .calendar-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 4px; }
+    .cal-head-cell { font-size: .65rem; text-transform: uppercase; letter-spacing: .1em; color: var(--dim); text-align: center; padding: 4px 0; }
     .cal-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-size: .78rem; cursor: pointer; transition: .2s; position: relative; color: var(--muted); }
     .cal-day:hover { background: var(--card2); color: var(--text); }
     .cal-day.today { background: var(--gold-dim); color: var(--gold); font-weight: 700; }
@@ -223,39 +222,64 @@
     .cal-nav button:hover { color: var(--gold); }
     .cal-nav span { font-size: .85rem; font-weight: 600; }
 
-    /* ── EMPTY STATE ── */
+    /* ── EMPTY / LOADING ── */
     .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 20px; gap: 12px; text-align: center; }
-    .empty-icon-big { font-size: 3.5rem; }
-    .empty-state h3 { font-size: 1rem; color: var(--text); }
+    .empty-state h3 { font-size: 1rem; }
     .empty-state p { font-size: .85rem; color: var(--muted); max-width: 320px; }
+    .loading-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px; gap: 12px; color: var(--muted); font-size: .875rem; }
+    .spinner { width: 28px; height: 28px; border: 2px solid var(--border); border-top-color: var(--gold); border-radius: 50%; animation: spin .8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     /* ── TOAST ── */
-    .toast { position: fixed; bottom: 24px; right: 24px; background: var(--card2); border: 1px solid var(--border2); border-radius: 10px; padding: 12px 18px; display: flex; align-items: center; gap: 10px; font-size: .85rem; z-index: 300; transform: translateY(80px); opacity: 0; transition: .3s; pointer-events: none; }
+    .toast { position: fixed; bottom: 24px; right: 24px; background: var(--card2); border: 1px solid var(--border2); border-radius: 10px; padding: 12px 18px; display: flex; align-items: center; gap: 10px; font-size: .85rem; z-index: 300; transform: translateY(80px); opacity: 0; transition: .3s; pointer-events: none; max-width: 300px; }
     .toast.show { transform: translateY(0); opacity: 1; }
-    .toast-icon { font-size: 1rem; }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 1100px) { .stats-row { grid-template-columns: repeat(2, 1fr); } .dash-grid { grid-template-columns: 1fr; } }
-    @media (max-width: 768px) {
-      .sidebar { transform: translateX(-100%); }
-      .sidebar.open { transform: translateX(0); }
-      .main { margin-left: 0; }
-      .hamburger-btn { display: flex; }
-      .stats-row { grid-template-columns: 1fr 1fr; }
-      .content { padding: 16px; }
-      .site-link span { display: none; }
-    }
-    @media (max-width: 480px) { .stats-row { grid-template-columns: 1fr; } .detail-grid { grid-template-columns: 1fr; } }
-
-    /* scrollbar */
-    ::-webkit-scrollbar { width: 5px; height: 5px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 3px; }
+    @media (max-width:1100px) { .stats-row { grid-template-columns: repeat(2,1fr); } .dash-grid { grid-template-columns: 1fr; } .cal-wrap { grid-template-columns: 1fr; } }
+    @media (max-width:768px) { .sidebar { transform: translateX(-100%); } .sidebar.open { transform: translateX(0); } .main { margin-left: 0; } .hamburger-btn { display: flex; } .content { padding: 16px; } }
+    @media (max-width:480px) { .stats-row { grid-template-columns: 1fr 1fr; } .detail-grid { grid-template-columns: 1fr; } .bookings-table th:nth-child(4), .bookings-table td:nth-child(4), .bookings-table th:nth-child(5), .bookings-table td:nth-child(5) { display: none; } }
+    ::-webkit-scrollbar { width: 5px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 3px; }
   </style>
 </head>
 <body>
 
-<!-- SIDEBAR -->
+<!-- ══ PIN SCREEN ══ -->
+<div id="pinScreen">
+  <div class="pin-card" id="pinCard">
+    <div class="pin-logo">
+      <div class="pin-logo-icon">LK</div>
+      <div class="pin-logo-text">
+        <div class="t1">LEnz of KVee</div>
+        <div class="t2">Owner Dashboard</div>
+      </div>
+    </div>
+    <div class="pin-title">Enter Your PIN</div>
+    <div class="pin-sub">Enter your 4-digit PIN to access the dashboard</div>
+    <div class="pin-dots" id="pinDots">
+      <div class="pin-dot" id="d0"></div>
+      <div class="pin-dot" id="d1"></div>
+      <div class="pin-dot" id="d2"></div>
+      <div class="pin-dot" id="d3"></div>
+    </div>
+    <div class="pin-grid">
+      <button class="pin-btn" onclick="pinPress('1')">1</button>
+      <button class="pin-btn" onclick="pinPress('2')">2<span class="sub">ABC</span></button>
+      <button class="pin-btn" onclick="pinPress('3')">3<span class="sub">DEF</span></button>
+      <button class="pin-btn" onclick="pinPress('4')">4<span class="sub">GHI</span></button>
+      <button class="pin-btn" onclick="pinPress('5')">5<span class="sub">JKL</span></button>
+      <button class="pin-btn" onclick="pinPress('6')">6<span class="sub">MNO</span></button>
+      <button class="pin-btn" onclick="pinPress('7')">7<span class="sub">PQRS</span></button>
+      <button class="pin-btn" onclick="pinPress('8')">8<span class="sub">TUV</span></button>
+      <button class="pin-btn" onclick="pinPress('9')">9<span class="sub">WXYZ</span></button>
+      <div></div>
+      <button class="pin-btn" onclick="pinPress('0')">0</button>
+      <button class="pin-del" onclick="pinDelete()">⌫</button>
+    </div>
+    <div class="pin-error" id="pinError"></div>
+  </div>
+</div>
+
+<!-- ══ SIDEBAR ══ -->
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-logo">
     <div class="logo-icon">LK</div>
@@ -266,43 +290,27 @@
   </div>
   <nav class="sidebar-nav">
     <span class="nav-section-label">Main</span>
-    <button class="nav-item active" onclick="showPage('overview',this)">
-      <span class="nav-icon">📊</span> Overview
-    </button>
+    <button class="nav-item active" onclick="showPage('overview',this)"><span class="nav-icon">📊</span> Overview</button>
     <button class="nav-item" onclick="showPage('bookings',this)">
       <span class="nav-icon">📋</span> All Bookings
-      <span class="badge" id="newBadge">0</span>
+      <span class="badge" id="newBadge" style="display:none;">0</span>
     </button>
-    <button class="nav-item" onclick="showPage('calendar',this)">
-      <span class="nav-icon">📅</span> Calendar
-    </button>
-
+    <button class="nav-item" onclick="showPage('calendar',this)"><span class="nav-icon">📅</span> Calendar</button>
     <span class="nav-section-label">Reports</span>
-    <button class="nav-item" onclick="showPage('sessions',this)">
-      <span class="nav-icon">📸</span> Sessions
-    </button>
-    <button class="nav-item" onclick="showPage('revenue',this)">
-      <span class="nav-icon">💰</span> Revenue
-    </button>
-
+    <button class="nav-item" onclick="showPage('sessions',this)"><span class="nav-icon">📸</span> Sessions</button>
     <span class="nav-section-label">Website</span>
-    <button class="nav-item" onclick="window.open('index.html','_blank')">
-      <span class="nav-icon">🌐</span> View Site
-    </button>
-    <button class="nav-item" onclick="window.open('booking.html','_blank')">
-      <span class="nav-icon">📝</span> Booking Form
-    </button>
+    <button class="nav-item" onclick="window.open('index.html','_blank')"><span class="nav-icon">🌐</span> View Site</button>
+    <button class="nav-item" onclick="window.open('booking.html','_blank')"><span class="nav-icon">📝</span> Booking Form</button>
   </nav>
   <div class="sidebar-footer">
-    <a href="index.html">
-      <span>🔙</span> Back to Website
-    </a>
+    <a href="index.html">🔙 Back to Website</a>
+    <button onclick="syncNow()">🔄 Sync Bookings</button>
+    <button onclick="lockDashboard()" style="color:var(--red);">🔒 Lock Dashboard</button>
   </div>
 </aside>
 
-<!-- MAIN -->
+<!-- ══ MAIN ══ -->
 <div class="main">
-  <!-- TOPBAR -->
   <div class="topbar">
     <div class="topbar-left">
       <button class="hamburger-btn" onclick="toggleSidebar()">☰</button>
@@ -312,280 +320,304 @@
       </div>
     </div>
     <div class="topbar-right">
-      <a href="https://pascal233.github.io/lenz-of-kvee/" target="_blank" class="site-link">
-        🌐 <span>Live Site</span>
-      </a>
-      <button class="topbar-btn notif" title="Notifications">
-        🔔 <div class="notif-dot" id="notifDot" style="display:none;"></div>
-      </button>
-      <div class="avatar" title="LEnz of KVee">LK</div>
+      <div class="sync-indicator">
+        <div class="sync-dot" id="syncDot"></div>
+        <span id="syncLabel">Live</span>
+      </div>
+      <a href="https://pascal233.github.io/lenz-of-kvee/" target="_blank" class="site-link">🌐 <span>Live Site</span></a>
+      <button class="topbar-btn notif" title="Notifications" onclick="syncNow()">🔔<div class="notif-dot" id="notifDot"></div></button>
+      <div class="avatar">LK</div>
     </div>
   </div>
 
-  <!-- CONTENT -->
   <div class="content">
-
-    <!-- ══ OVERVIEW PAGE ══ -->
+    <!-- OVERVIEW -->
     <div class="page active" id="page-overview">
       <div class="stats-row">
         <div class="stat-card">
-          <div class="stat-top">
-            <div class="stat-icon" style="background:var(--gold-dim);">📋</div>
-            <span class="stat-change change-new" id="newCount">0 new</span>
-          </div>
-          <div class="stat-val" id="statTotal">0</div>
-          <div class="stat-label">Total Bookings</div>
+          <div class="stat-top"><div class="stat-icon" style="background:var(--gold-dim);">📋</div><span class="stat-change change-new" id="newCount">0 new</span></div>
+          <div class="stat-val" id="statTotal">—</div><div class="stat-label">Total Bookings</div>
         </div>
         <div class="stat-card">
-          <div class="stat-top">
-            <div class="stat-icon" style="background:var(--green-bg);">✅</div>
-            <span class="stat-change change-up">Active</span>
-          </div>
-          <div class="stat-val" id="statConfirmed" style="color:var(--green);">0</div>
-          <div class="stat-label">Confirmed</div>
+          <div class="stat-top"><div class="stat-icon" style="background:var(--green-bg);">✅</div><span class="stat-change change-up">Active</span></div>
+          <div class="stat-val" id="statConfirmed" style="color:var(--green);">—</div><div class="stat-label">Confirmed</div>
         </div>
         <div class="stat-card">
-          <div class="stat-top">
-            <div class="stat-icon" style="background:var(--blue-bg);">⏳</div>
-            <span class="stat-change" style="background:var(--blue-bg);color:var(--blue);">Review</span>
-          </div>
-          <div class="stat-val" id="statPending" style="color:var(--blue);">0</div>
-          <div class="stat-label">Pending</div>
+          <div class="stat-top"><div class="stat-icon" style="background:var(--blue-bg);">⏳</div><span class="stat-change" style="background:var(--blue-bg);color:var(--blue);">Review</span></div>
+          <div class="stat-val" id="statPending" style="color:var(--blue);">—</div><div class="stat-label">Pending</div>
         </div>
         <div class="stat-card">
-          <div class="stat-top">
-            <div class="stat-icon" style="background:var(--purple-bg);">🎬</div>
-            <span class="stat-change change-up">Done</span>
-          </div>
-          <div class="stat-val" id="statCompleted" style="color:var(--purple);">0</div>
-          <div class="stat-label">Completed</div>
+          <div class="stat-top"><div class="stat-icon" style="background:var(--purple-bg);">🎬</div><span class="stat-change change-up">Done</span></div>
+          <div class="stat-val" id="statCompleted" style="color:var(--purple);">—</div><div class="stat-label">Completed</div>
         </div>
       </div>
-
       <div class="dash-grid">
-        <!-- Recent bookings -->
         <div class="recent-card">
-          <div class="card-head">
-            <h3>Recent Bookings</h3>
-            <button class="small-btn" onclick="showPage('bookings',null)">View All →</button>
-          </div>
-          <div id="recentList">
-            <div class="empty-state">
-              <div class="empty-icon-big">📭</div>
-              <h3>No bookings yet</h3>
-              <p>When clients submit the booking form, they'll appear here.</p>
-            </div>
-          </div>
+          <div class="card-head"><h3>Recent Bookings</h3><button class="small-btn" onclick="showPage('bookings',null)">View All →</button></div>
+          <div id="recentList"><div class="loading-state"><div class="spinner"></div><span>Loading bookings…</span></div></div>
         </div>
-
-        <!-- Breakdown -->
-        <div>
-          <div class="recent-card">
-            <div class="card-head"><h3>Session Breakdown</h3></div>
-            <div class="mini-stat-list" id="sessionBreakdown">
-              <p style="color:var(--dim); font-size:.8rem; text-align:center; padding:20px 0;">No data yet</p>
-            </div>
-          </div>
+        <div class="recent-card">
+          <div class="card-head"><h3>Session Breakdown</h3></div>
+          <div class="mini-stat-list" id="sessionBreakdown"><div class="loading-state"><div class="spinner"></div></div></div>
         </div>
       </div>
     </div>
 
-    <!-- ══ BOOKINGS PAGE ══ -->
+    <!-- BOOKINGS -->
     <div class="page" id="page-bookings">
       <div class="section-head">
         <h2>All Bookings</h2>
         <div class="sh-right">
-          <div class="search-box">
-            🔍 <input type="text" id="searchInput" placeholder="Search name, session…" oninput="renderTable()"/>
-          </div>
+          <div class="search-box">🔍 <input type="text" id="searchInput" placeholder="Search name, session…" oninput="renderTable()"/></div>
           <button class="small-btn gold" onclick="exportCSV()">⬇ Export CSV</button>
         </div>
       </div>
       <div style="margin-bottom:14px;">
-        <div class="filter-tabs" id="filterTabs">
-          <button class="ftab active" data-status="All" onclick="setFilter('All',this)">All</button>
-          <button class="ftab" data-status="new" onclick="setFilter('new',this)">New</button>
-          <button class="ftab" data-status="pending" onclick="setFilter('pending',this)">Pending</button>
-          <button class="ftab" data-status="confirmed" onclick="setFilter('confirmed',this)">Confirmed</button>
-          <button class="ftab" data-status="completed" onclick="setFilter('completed',this)">Completed</button>
-          <button class="ftab" data-status="cancelled" onclick="setFilter('cancelled',this)">Cancelled</button>
+        <div class="filter-tabs">
+          <button class="ftab active" onclick="setFilter('All',this)">All</button>
+          <button class="ftab" onclick="setFilter('new',this)">New</button>
+          <button class="ftab" onclick="setFilter('pending',this)">Pending</button>
+          <button class="ftab" onclick="setFilter('confirmed',this)">Confirmed</button>
+          <button class="ftab" onclick="setFilter('completed',this)">Completed</button>
+          <button class="ftab" onclick="setFilter('cancelled',this)">Cancelled</button>
         </div>
       </div>
       <div class="table-wrap">
         <table class="bookings-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Client</th>
-              <th>Session Type</th>
-              <th>Package</th>
-              <th>Date</th>
-              <th>Time</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
+          <thead><tr><th>#</th><th>Client</th><th>Session Type</th><th>Package</th><th>Date</th><th>Time</th><th>Status</th><th>Actions</th></tr></thead>
           <tbody id="bookingsBody"></tbody>
         </table>
-        <div id="tableEmpty" class="table-empty" style="display:none;">
-          <div class="empty-icon">📭</div>
-          <p>No bookings found.</p>
-        </div>
-        <div class="pagination">
-          <span class="page-info" id="pageInfo">Showing 0 bookings</span>
-          <div class="page-btns" id="pageBtns"></div>
-        </div>
+        <div id="tableEmpty" class="table-empty" style="display:none;"><p>📭 No bookings found.</p></div>
+        <div class="pagination"><span class="page-info" id="pageInfo">Showing 0 bookings</span><div class="page-btns" id="pageBtns"></div></div>
       </div>
     </div>
 
-    <!-- ══ CALENDAR PAGE ══ -->
+    <!-- CALENDAR -->
     <div class="page" id="page-calendar">
-      <div style="display:grid; grid-template-columns:320px 1fr; gap:20px; align-items:start;">
+      <div class="cal-wrap">
         <div class="recent-card">
           <div class="card-head"><h3>📅 Booking Calendar</h3></div>
           <div style="padding:16px;">
-            <div class="cal-nav">
-              <button onclick="changeMonth(-1)">◀</button>
-              <span id="calTitle"></span>
-              <button onclick="changeMonth(1)">▶</button>
-            </div>
+            <div class="cal-nav"><button onclick="changeMonth(-1)">◀</button><span id="calTitle"></span><button onclick="changeMonth(1)">▶</button></div>
             <div class="calendar-grid" id="calGrid"></div>
           </div>
         </div>
-        <div>
-          <div class="recent-card">
-            <div class="card-head">
-              <h3 id="calDayTitle">Select a day</h3>
-            </div>
-            <div id="calDayBookings">
-              <div class="empty-state" style="padding:40px 20px;">
-                <div class="empty-icon-big">👆</div>
-                <p>Click on a date to see bookings for that day.</p>
-              </div>
-            </div>
-          </div>
+        <div class="recent-card">
+          <div class="card-head"><h3 id="calDayTitle">Select a day</h3></div>
+          <div id="calDayBookings"><div class="empty-state" style="padding:40px 20px;"><span style="font-size:2.5rem;">👆</span><p>Click on a date to see bookings for that day.</p></div></div>
         </div>
       </div>
     </div>
 
-    <!-- ══ SESSIONS PAGE ══ -->
+    <!-- SESSIONS -->
     <div class="page" id="page-sessions">
       <div class="section-head"><h2>Sessions Overview</h2></div>
-      <div id="sessionsContent">
-        <div class="empty-state">
-          <div class="empty-icon-big">📸</div>
-          <h3>No session data yet</h3>
-          <p>Session breakdowns will appear here as bookings come in.</p>
-        </div>
-      </div>
+      <div id="sessionsContent"><div class="loading-state"><div class="spinner"></div><span>Loading…</span></div></div>
     </div>
+  </div>
+</div>
 
-    <!-- ══ REVENUE PAGE ══ -->
-    <div class="page" id="page-revenue">
-      <div class="section-head"><h2>Revenue Tracker</h2></div>
-      <div id="revenueContent">
-        <div class="empty-state">
-          <div class="empty-icon-big">💰</div>
-          <h3>No revenue data yet</h3>
-          <p>As you mark bookings as completed, revenue data will show here.</p>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /content -->
-</div><!-- /main -->
-
-<!-- BOOKING DETAIL MODAL -->
+<!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
   <div class="modal" onclick="event.stopPropagation()">
     <div class="modal-head">
-      <div>
-        <h3 id="modalTitle">Booking Details</h3>
-        <p id="modalSub"></p>
-      </div>
+      <div><h3 id="modalTitle">Booking Details</h3><p id="modalSub"></p></div>
       <button class="modal-close" onclick="closeModal()">✕</button>
     </div>
     <div class="modal-body">
       <div class="detail-grid" id="modalDetails"></div>
-      <div>
-        <div class="detail-label" style="margin-bottom:8px;">Status</div>
-        <div class="modal-status-row" id="modalStatusRow"></div>
-      </div>
-      <div id="modalNotes" style="display:none;">
-        <div class="detail-label" style="margin-bottom:6px;">Special Requests / Notes</div>
-        <div class="notes-box" id="notesContent"></div>
-      </div>
+      <div><div class="detail-label" style="margin-bottom:8px;">Update Status</div><div class="modal-status-row" id="modalStatusRow"></div></div>
+      <div id="modalNotes" style="display:none;"><div class="detail-label" style="margin-bottom:6px;">Special Requests</div><div class="notes-box" id="notesContent"></div></div>
       <div class="modal-actions" id="modalActions"></div>
     </div>
   </div>
 </div>
 
-<!-- TOAST -->
-<div class="toast" id="toast"><span class="toast-icon" id="toastIcon"></span><span id="toastMsg"></span></div>
-
-<!-- SIDEBAR OVERLAY -->
-<div id="sidebarOverlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:99;" onclick="toggleSidebar()"></div>
+<div class="toast" id="toast"><span id="toastIcon"></span><span id="toastMsg"></span></div>
+<div id="sidebarOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99;" onclick="toggleSidebar()"></div>
 
 <script>
-// ═══════════════════════════════════════════════
-//  DATA STORE
-// ═══════════════════════════════════════════════
-let bookings = JSON.parse(localStorage.getItem('lokv_bookings') || '[]');
+// ═══════════════════════════════════════
+//  CONFIG
+// ═══════════════════════════════════════
+const BIN_ID  = '6ad03addffd5d160536c28d5';
+const API_KEY = '$2a$10$wdMwHGBREVkcOMRfjUns4OHhGH1TrrRfbNTCu/OHg/LVZOB7XO2v2';
+const PIN     = '1234';  // ← CHANGE THIS TO YOUR SECRET PIN
+const BIN_URL = 'https://api.jsonbin.io/v3/b/' + BIN_ID;
+
+// ═══════════════════════════════════════
+//  PIN LOGIC
+// ═══════════════════════════════════════
+let pinEntry = '';
+const SESSION_KEY = 'lokv_auth';
+
+function checkAuth(){
+  // Stay unlocked for 8 hours
+  const ts = sessionStorage.getItem(SESSION_KEY);
+  if(ts && Date.now() - parseInt(ts) < 8*60*60*1000){
+    unlockDashboard();
+  }
+}
+
+function pinPress(digit){
+  if(pinEntry.length >= 4) return;
+  pinEntry += digit;
+  updateDots();
+  if(pinEntry.length === 4) setTimeout(checkPin, 150);
+}
+
+function pinDelete(){
+  pinEntry = pinEntry.slice(0,-1);
+  updateDots();
+  document.getElementById('pinError').textContent = '';
+}
+
+function updateDots(){
+  for(let i=0;i<4;i++){
+    const d = document.getElementById('d'+i);
+    d.classList.toggle('filled', i < pinEntry.length);
+    d.classList.remove('error');
+  }
+}
+
+function checkPin(){
+  if(pinEntry === PIN){
+    sessionStorage.setItem(SESSION_KEY, Date.now().toString());
+    unlockDashboard();
+  } else {
+    for(let i=0;i<4;i++) document.getElementById('d'+i).classList.add('error');
+    document.getElementById('pinError').textContent = 'Incorrect PIN. Try again.';
+    document.getElementById('pinCard').classList.add('pin-shake');
+    setTimeout(()=>{ pinEntry=''; updateDots(); document.getElementById('pinCard').classList.remove('pin-shake'); }, 600);
+  }
+}
+
+function unlockDashboard(){
+  document.getElementById('pinScreen').classList.add('hidden');
+  loadBookings();
+  setInterval(syncNow, 60000); // Auto-sync every 60 seconds
+}
+
+function lockDashboard(){
+  sessionStorage.removeItem(SESSION_KEY);
+  pinEntry = '';
+  updateDots();
+  document.getElementById('pinError').textContent = '';
+  document.getElementById('pinScreen').classList.remove('hidden');
+}
+
+// Keyboard support
+document.addEventListener('keydown', e=>{
+  if(document.getElementById('pinScreen').classList.contains('hidden')) return;
+  if(e.key>='0' && e.key<='9') pinPress(e.key);
+  if(e.key==='Backspace') pinDelete();
+});
+
+// ═══════════════════════════════════════
+//  CLOUD SYNC (JSONBin)
+// ═══════════════════════════════════════
+let bookings = [];
 let currentFilter = 'All';
 let currentPage   = 1;
 const PER_PAGE    = 10;
-let selectedDate  = null;
 let calYear, calMonth;
-
 const now = new Date();
-calYear  = now.getFullYear();
-calMonth = now.getMonth();
+calYear = now.getFullYear(); calMonth = now.getMonth();
 
-// Avatar colours pool
+function setSyncState(state){
+  const dot   = document.getElementById('syncDot');
+  const label = document.getElementById('syncLabel');
+  dot.className = 'sync-dot' + (state==='syncing' ? ' syncing' : state==='error' ? ' error' : '');
+  label.textContent = state==='syncing' ? 'Syncing…' : state==='error' ? 'Offline' : 'Live';
+}
+
+async function loadBookings(){
+  setSyncState('syncing');
+  try {
+    const res = await fetch(BIN_URL+'/latest', {
+      headers: { 'X-Master-Key': API_KEY }
+    });
+    if(!res.ok) throw new Error('fetch failed');
+    const data = await res.json();
+    bookings = data.record.bookings || [];
+    setSyncState('live');
+    renderOverview();
+    const activePage = document.querySelector('.page.active')?.id?.replace('page-','');
+    if(activePage === 'bookings') renderTable();
+    if(activePage === 'calendar') renderCalendar();
+    if(activePage === 'sessions') renderSessions();
+    updateBadge();
+  } catch(err){
+    setSyncState('error');
+    // Fall back to localStorage cache
+    bookings = JSON.parse(localStorage.getItem('lokv_bookings_cache') || '[]');
+    renderOverview();
+    showToast('⚠️','Could not reach cloud. Showing cached data.');
+  }
+}
+
+async function saveBookings(){
+  setSyncState('syncing');
+  try {
+    const res = await fetch(BIN_URL, {
+      method: 'PUT',
+      headers: { 'Content-Type':'application/json', 'X-Master-Key': API_KEY },
+      body: JSON.stringify({ bookings })
+    });
+    if(!res.ok) throw new Error('save failed');
+    setSyncState('live');
+    localStorage.setItem('lokv_bookings_cache', JSON.stringify(bookings));
+  } catch(err){
+    setSyncState('error');
+    showToast('⚠️','Save failed. Check your connection.');
+  }
+}
+
+function syncNow(){ loadBookings(); showToast('🔄','Syncing bookings…'); }
+
+function updateBadge(){
+  const n = bookings.filter(b=>b.status==='new').length;
+  const badge = document.getElementById('newBadge');
+  badge.textContent = n;
+  badge.style.display = n>0 ? '' : 'none';
+  document.getElementById('notifDot').style.display = n>0 ? '' : 'none';
+}
+
+// ═══════════════════════════════════════
+//  NAVIGATION
+// ═══════════════════════════════════════
+const pageTitles = {
+  overview: ['Overview','Welcome back, boss 👑'],
+  bookings: ['All Bookings','Manage and track all your booking requests'],
+  calendar: ['Calendar','See bookings by date'],
+  sessions: ['Sessions','Breakdown by session type'],
+};
+
+function showPage(id, btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  const [title,sub] = pageTitles[id]||[id,''];
+  document.getElementById('pageTitle').textContent    = title;
+  document.getElementById('pageSubtitle').textContent = sub;
+  if(id==='bookings') renderTable();
+  if(id==='calendar') renderCalendar();
+  if(id==='sessions') renderSessions();
+  if(id==='overview') renderOverview();
+  closeSidebar();
+}
+
+function toggleSidebar(){ const s=document.getElementById('sidebar'); const o=document.getElementById('sidebarOverlay'); const open=s.classList.toggle('open'); o.style.display=open?'block':'none'; }
+function closeSidebar(){ document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarOverlay').style.display='none'; }
+
+// ═══════════════════════════════════════
+//  OVERVIEW
+// ═══════════════════════════════════════
 const COLORS = ['#c9a84c','#4caf82','#5b8dee','#a78bfa','#e05555','#e8895a','#4db6e0'];
 function avatarColor(name){ let h=0; for(let c of name) h=(h*31+c.charCodeAt(0))%COLORS.length; return COLORS[h]; }
 function initials(fn,ln){ return ((fn||'?')[0]+(ln||'?')[0]).toUpperCase(); }
 
-// ═══════════════════════════════════════════════
-//  NAVIGATION
-// ═══════════════════════════════════════════════
-const pageTitles = {
-  overview: ['Overview', 'Welcome back, boss 👑'],
-  bookings: ['All Bookings', 'Manage and track all your booking requests'],
-  calendar: ['Calendar', 'See bookings by date'],
-  sessions: ['Sessions', 'Breakdown by session type'],
-  revenue:  ['Revenue', 'Track your earnings'],
-};
-
-function showPage(id, btn){
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-'+id).classList.add('active');
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-  const [title, sub] = pageTitles[id] || [id,''];
-  document.getElementById('pageTitle').textContent    = title;
-  document.getElementById('pageSubtitle').textContent = sub;
-  if(id === 'bookings') renderTable();
-  if(id === 'calendar') renderCalendar();
-  if(id === 'sessions') renderSessions();
-  if(id === 'overview') renderOverview();
-  closeSidebar();
-}
-
-function toggleSidebar(){
-  const s = document.getElementById('sidebar');
-  const o = document.getElementById('sidebarOverlay');
-  const open = s.classList.toggle('open');
-  o.style.display = open ? 'block' : 'none';
-}
-function closeSidebar(){
-  document.getElementById('sidebar').classList.remove('open');
-  document.getElementById('sidebarOverlay').style.display='none';
-}
-
-// ═══════════════════════════════════════════════
-//  OVERVIEW
-// ═══════════════════════════════════════════════
 function renderOverview(){
   const total     = bookings.length;
   const newB      = bookings.filter(b=>b.status==='new').length;
@@ -597,124 +629,92 @@ function renderOverview(){
   document.getElementById('statConfirmed').textContent = confirmed;
   document.getElementById('statPending').textContent   = pending;
   document.getElementById('statCompleted').textContent = completed;
-  document.getElementById('newCount').textContent      = newB + ' new';
-  document.getElementById('newBadge').textContent      = newB;
-  document.getElementById('newBadge').style.display    = newB > 0 ? '' : 'none';
-  document.getElementById('notifDot').style.display    = newB > 0 ? '' : 'none';
+  document.getElementById('newCount').textContent      = newB + (newB===1?' new':' new');
+  updateBadge();
 
-  // Recent list
-  const recent = [...bookings].reverse().slice(0,5);
   const rl = document.getElementById('recentList');
+  const recent = [...bookings].reverse().slice(0,5);
   if(!recent.length){
-    rl.innerHTML = `<div class="empty-state"><div class="empty-icon-big">📭</div><h3>No bookings yet</h3><p>When clients submit the booking form, they'll appear here.</p></div>`;
-    return;
+    rl.innerHTML = `<div class="empty-state"><span style="font-size:2.5rem;">📭</span><h3>No bookings yet</h3><p>When clients submit the booking form, they'll appear here.</p></div>`;
+  } else {
+    rl.innerHTML = `<div class="activity-list">`+recent.map(b=>`
+      <div class="activity-item" onclick="openModal('${b.id}')">
+        <div class="activity-dot" style="background:${statusColor(b.status)};"></div>
+        <div class="activity-text"><strong>${b.firstName} ${b.lastName}</strong> — ${b.sessionType}<br/>${b.packageName?b.packageName+' · ':''}${b.preferredDate||'Date TBC'}</div>
+        <span class="activity-time">${timeAgo(b.createdAt)}</span>
+      </div>`).join('')+`</div>`;
   }
-  rl.innerHTML = `<div class="activity-list">`+recent.map(b=>`
-    <div class="activity-item" style="cursor:pointer;" onclick="openModal(${b.id})">
-      <div class="activity-dot" style="background:${statusColor(b.status)};"></div>
-      <div class="activity-text">
-        <strong>${b.firstName} ${b.lastName}</strong> — ${b.sessionType}
-        <br/>${b.packageName ? b.packageName+' · ':''} ${b.preferredDate||'Date TBC'}
-      </div>
-      <span class="activity-time">${timeAgo(b.createdAt)}</span>
-    </div>`).join('')+`</div>`;
 
-  // Breakdown
   const counts = {};
-  bookings.forEach(b=>{ counts[b.sessionType] = (counts[b.sessionType]||0)+1; });
+  bookings.forEach(b=>{ counts[b.sessionType]=(counts[b.sessionType]||0)+1; });
   const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,6);
   const sb = document.getElementById('sessionBreakdown');
-  if(!sorted.length){ sb.innerHTML = `<p style="color:var(--dim);font-size:.8rem;text-align:center;padding:20px 0;">No data yet</p>`; return; }
+  if(!sorted.length){ sb.innerHTML=`<p style="color:var(--dim);font-size:.8rem;text-align:center;padding:20px 0;">No data yet</p>`; return; }
   sb.innerHTML = sorted.map(([type,cnt],i)=>`
     <div class="mini-stat">
-      <span class="mini-stat-label">
-        <span class="mini-dot" style="background:${COLORS[i%COLORS.length]};"></span>
-        <span style="font-size:.78rem;">${type}</span>
-      </span>
+      <span class="mini-stat-label"><span class="mini-dot" style="background:${COLORS[i%COLORS.length]};"></span><span style="font-size:.78rem;">${type}</span></span>
       <span class="mini-stat-val">${cnt}</span>
     </div>
     <div class="progress-bar"><div class="progress-fill" style="width:${Math.round(cnt/total*100)}%;background:${COLORS[i%COLORS.length]};"></div></div>
   `).join('');
 }
 
-// ═══════════════════════════════════════════════
-//  BOOKINGS TABLE
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════
+//  TABLE
+// ═══════════════════════════════════════
 function renderTable(){
   const q = (document.getElementById('searchInput').value||'').toLowerCase();
   let data = bookings.filter(b=>{
-    const match = currentFilter==='All' || b.status===currentFilter;
-    const search = !q || (b.firstName+' '+b.lastName+' '+b.sessionType+' '+b.packageName).toLowerCase().includes(q);
+    const match  = currentFilter==='All' || b.status===currentFilter;
+    const search = !q || (b.firstName+' '+b.lastName+' '+b.sessionType+' '+(b.packageName||'')).toLowerCase().includes(q);
     return match && search;
   });
 
   const total   = data.length;
-  const pages   = Math.max(1, Math.ceil(total/PER_PAGE));
+  const pages   = Math.max(1,Math.ceil(total/PER_PAGE));
   currentPage   = Math.min(currentPage, pages);
   const start   = (currentPage-1)*PER_PAGE;
-  const visible = data.reverse().slice(start, start+PER_PAGE);
+  const visible = [...data].reverse().slice(start, start+PER_PAGE);
 
   document.getElementById('pageInfo').textContent = `Showing ${total} booking${total!==1?'s':''}`;
-  const body = document.getElementById('bookingsBody');
+  const body  = document.getElementById('bookingsBody');
   const empty = document.getElementById('tableEmpty');
 
-  if(!visible.length){
-    body.innerHTML = '';
-    empty.style.display = '';
-  } else {
-    empty.style.display = 'none';
+  if(!visible.length){ body.innerHTML=''; empty.style.display=''; }
+  else {
+    empty.style.display='none';
     body.innerHTML = visible.map((b,i)=>`
       <tr>
-        <td style="color:var(--dim);font-size:.75rem;">#${start+i+1}</td>
-        <td>
-          <div class="client-cell">
-            <div class="client-avatar" style="background:${avatarColor(b.firstName)};">${initials(b.firstName,b.lastName)}</div>
-            <div>
-              <div class="client-name">${b.firstName} ${b.lastName}</div>
-              <div class="client-email">${b.email}</div>
-            </div>
-          </div>
-        </td>
+        <td style="color:var(--dim);font-size:.75rem;">${start+i+1}</td>
+        <td><div class="client-cell"><div class="client-avatar" style="background:${avatarColor(b.firstName)};">${initials(b.firstName,b.lastName)}</div><div><div class="client-name">${b.firstName} ${b.lastName}</div><div class="client-email">${b.email}</div></div></div></td>
         <td>${b.sessionType}</td>
         <td style="color:var(--muted);">${b.packageName||'—'}</td>
         <td style="color:var(--muted);">${b.preferredDate||'—'}</td>
         <td style="color:var(--muted);">${b.preferredTime||'—'}</td>
         <td><span class="status-badge status-${b.status}">${b.status}</span></td>
-        <td>
-          <div class="action-btns">
-            <button class="action-btn" title="View details" onclick="openModal(${b.id})">👁</button>
-            <button class="action-btn" title="Call client" onclick="window.open('tel:${b.phone}')">📞</button>
-            <button class="action-btn" title="Email client" onclick="window.open('mailto:${b.email}')">✉️</button>
-            <button class="action-btn danger" title="Delete" onclick="deleteBooking(${b.id})">🗑</button>
-          </div>
-        </td>
-      </tr>
-    `).join('');
+        <td><div class="action-btns">
+          <button class="action-btn" title="View" onclick="openModal('${b.id}')">👁</button>
+          <button class="action-btn" title="Call" onclick="window.open('tel:${b.phone}')">📞</button>
+          <button class="action-btn" title="Email" onclick="window.open('mailto:${b.email}')">✉️</button>
+          <button class="action-btn danger" title="Delete" onclick="deleteBooking('${b.id}')">🗑</button>
+        </div></td>
+      </tr>`).join('');
   }
-
-  // Pagination
   const pb = document.getElementById('pageBtns');
   pb.innerHTML = Array.from({length:pages},(_,i)=>`<button class="page-btn ${i+1===currentPage?'active':''}" onclick="goPage(${i+1})">${i+1}</button>`).join('');
 }
 
-function setFilter(status, btn){
-  currentFilter = status;
-  currentPage   = 1;
-  document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
-  renderTable();
-}
+function setFilter(status,btn){ currentFilter=status; currentPage=1; document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('active')); btn.classList.add('active'); renderTable(); }
 function goPage(p){ currentPage=p; renderTable(); }
 
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════
 //  MODAL
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════
 function openModal(id){
   const b = bookings.find(x=>x.id===id);
   if(!b) return;
   document.getElementById('modalTitle').textContent = b.firstName+' '+b.lastName;
   document.getElementById('modalSub').textContent   = b.sessionType+(b.packageName?' — '+b.packageName:'');
-
   document.getElementById('modalDetails').innerHTML = `
     <div class="detail-item"><div class="detail-label">Email</div><div class="detail-val">${b.email}</div></div>
     <div class="detail-item"><div class="detail-label">Phone</div><div class="detail-val">${b.phone}</div></div>
@@ -728,127 +728,91 @@ function openModal(id){
     <div class="detail-item"><div class="detail-label">Heard About Us</div><div class="detail-val">${b.heardAbout||'—'}</div></div>
     <div class="detail-item"><div class="detail-label">Submitted</div><div class="detail-val">${new Date(b.createdAt).toLocaleString()}</div></div>
   `;
-
   const statuses = ['new','pending','confirmed','completed','cancelled'];
-  document.getElementById('modalStatusRow').innerHTML =
-    `<span>Set status:</span>`+
-    statuses.map(s=>`<button class="status-btn ${s} ${b.status===s?'':'opacity-50'}" onclick="updateStatus(${b.id},'${s}')">${s}</button>`).join('');
-
-  const notes = b.specialRequests;
+  document.getElementById('modalStatusRow').innerHTML = `<span>Set status:</span>`+
+    statuses.map(s=>`<button class="status-btn ${s} ${b.status===s?'active-status':''}" onclick="updateStatus('${b.id}','${s}')">${s}</button>`).join('');
   const mn = document.getElementById('modalNotes');
-  if(notes && notes!=='—'){
-    mn.style.display='';
-    document.getElementById('notesContent').textContent = notes;
-  } else mn.style.display='none';
-
+  if(b.specialRequests && b.specialRequests.trim() && b.specialRequests!=='—'){ mn.style.display=''; document.getElementById('notesContent').textContent=b.specialRequests; }
+  else mn.style.display='none';
   document.getElementById('modalActions').innerHTML = `
     <a href="mailto:${b.email}?subject=Your Booking Request — ${b.sessionType}" class="small-btn gold">✉️ Reply by Email</a>
     <a href="tel:${b.phone}" class="small-btn">📞 Call Client</a>
-    <button class="small-btn" style="border-color:var(--red);color:var(--red);" onclick="deleteBooking(${b.id});closeModal();">🗑 Delete</button>
+    <button class="small-btn" style="border-color:var(--red);color:var(--red);" onclick="deleteBooking('${b.id}');closeModal();">🗑 Delete</button>
   `;
-
   document.getElementById('modalOverlay').classList.add('open');
 }
-function closeModal(e){
-  if(!e || e.target===document.getElementById('modalOverlay'))
-    document.getElementById('modalOverlay').classList.remove('open');
-}
+function closeModal(e){ if(!e||e.target===document.getElementById('modalOverlay')) document.getElementById('modalOverlay').classList.remove('open'); }
 
-function updateStatus(id, status){
+async function updateStatus(id, status){
   const b = bookings.find(x=>x.id===id);
   if(!b) return;
   b.status = status;
-  save();
+  await saveBookings();
   openModal(id);
   renderOverview();
   renderTable();
-  showToast('✅', 'Status updated to "'+status+'"');
+  showToast('✅','Status updated to "'+status+'"');
 }
 
-function deleteBooking(id){
+async function deleteBooking(id){
   if(!confirm('Delete this booking? This cannot be undone.')) return;
   bookings = bookings.filter(b=>b.id!==id);
-  save();
+  await saveBookings();
   renderOverview();
   renderTable();
-  showToast('🗑', 'Booking deleted');
+  showToast('🗑','Booking deleted');
 }
 
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════
 //  CALENDAR
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 function renderCalendar(){
-  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  document.getElementById('calTitle').textContent = months[calMonth]+' '+calYear;
-
-  const grid = document.getElementById('calGrid');
-  const days = ['Su','Mo','Tu','We','Th','Fr','Sa'];
-  let html = days.map(d=>`<div class="cal-head">${d}</div>`).join('');
-
-  const first = new Date(calYear, calMonth, 1).getDay();
-  const total = new Date(calYear, calMonth+1, 0).getDate();
-  const prevTotal = new Date(calYear, calMonth, 0).getDate();
-
-  // Dates that have bookings
+  document.getElementById('calTitle').textContent = MONTHS[calMonth]+' '+calYear;
+  const grid  = document.getElementById('calGrid');
+  const days  = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+  let html    = days.map(d=>`<div class="cal-head-cell">${d}</div>`).join('');
+  const first = new Date(calYear,calMonth,1).getDay();
+  const total = new Date(calYear,calMonth+1,0).getDate();
+  const prevT = new Date(calYear,calMonth,0).getDate();
   const bookedDates = new Set(bookings.map(b=>b.preferredDate));
-
-  for(let i=0;i<first;i++){
-    const d = prevTotal-first+1+i;
-    html += `<div class="cal-day other-month">${d}</div>`;
-  }
+  for(let i=0;i<first;i++) html+=`<div class="cal-day other-month">${prevT-first+1+i}</div>`;
   for(let d=1;d<=total;d++){
-    const dateStr = calYear+'-'+String(calMonth+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+    const ds = calYear+'-'+String(calMonth+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
     const isToday = d===now.getDate() && calMonth===now.getMonth() && calYear===now.getFullYear();
-    const hasB    = bookedDates.has(dateStr);
-    html += `<div class="cal-day ${isToday?'today':''} ${hasB?'has-booking':''}" onclick="selectDate('${dateStr}','${d} ${months[calMonth]} ${calYear}')">${d}</div>`;
+    html += `<div class="cal-day ${isToday?'today':''} ${bookedDates.has(ds)?'has-booking':''}" onclick="selectDate('${ds}','${d} ${MONTHS[calMonth]} ${calYear}')">${d}</div>`;
   }
   grid.innerHTML = html;
 }
-
-function changeMonth(dir){
-  calMonth += dir;
-  if(calMonth<0){ calMonth=11; calYear--; }
-  if(calMonth>11){ calMonth=0; calYear++; }
-  renderCalendar();
-}
-
-function selectDate(dateStr, label){
-  document.getElementById('calDayTitle').textContent = '📅 '+label;
-  const dayBookings = bookings.filter(b=>b.preferredDate===dateStr);
+function changeMonth(dir){ calMonth+=dir; if(calMonth<0){calMonth=11;calYear--;} if(calMonth>11){calMonth=0;calYear++;} renderCalendar(); }
+function selectDate(ds,label){
+  document.getElementById('calDayTitle').textContent='📅 '+label;
+  const dayB = bookings.filter(b=>b.preferredDate===ds);
   const el = document.getElementById('calDayBookings');
-  if(!dayBookings.length){
-    el.innerHTML = `<div class="empty-state" style="padding:40px 20px;"><div class="empty-icon-big">🗓</div><p>No bookings on this date.</p></div>`;
-    return;
-  }
-  el.innerHTML = `<div class="activity-list">`+dayBookings.map(b=>`
-    <div class="activity-item" style="cursor:pointer;" onclick="openModal(${b.id})">
+  if(!dayB.length){ el.innerHTML=`<div class="empty-state" style="padding:40px 20px;"><span style="font-size:2.5rem;">🗓</span><p>No bookings on this date.</p></div>`; return; }
+  el.innerHTML=`<div class="activity-list">`+dayB.map(b=>`
+    <div class="activity-item" onclick="openModal('${b.id}')">
       <div class="activity-dot" style="background:${statusColor(b.status)};"></div>
-      <div class="activity-text">
-        <strong>${b.firstName} ${b.lastName}</strong><br/>
-        ${b.sessionType} · ${b.preferredTime||'Time TBC'}
-      </div>
+      <div class="activity-text"><strong>${b.firstName} ${b.lastName}</strong><br/>${b.sessionType} · ${b.preferredTime||'Time TBC'}</div>
       <span class="status-badge status-${b.status}" style="font-size:.65rem;">${b.status}</span>
     </div>`).join('')+`</div>`;
 }
 
-// ═══════════════════════════════════════════════
-//  SESSIONS PAGE
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════
+//  SESSIONS
+// ═══════════════════════════════════════
 function renderSessions(){
-  const counts = {};
-  bookings.forEach(b=>{ counts[b.sessionType]=(counts[b.sessionType]||0)+1; });
-  const entries = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
-  const el = document.getElementById('sessionsContent');
-  if(!entries.length){
-    el.innerHTML=`<div class="empty-state"><div class="empty-icon-big">📸</div><h3>No session data yet</h3><p>Session breakdowns will appear here as bookings come in.</p></div>`;
-    return;
-  }
-  const total = bookings.length;
-  el.innerHTML = `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;">`+
+  const counts={};
+  bookings.forEach(b=>{counts[b.sessionType]=(counts[b.sessionType]||0)+1;});
+  const entries=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  const el=document.getElementById('sessionsContent');
+  if(!entries.length){el.innerHTML=`<div class="empty-state"><span style="font-size:3rem;">📸</span><h3>No session data yet</h3><p>Session breakdowns will appear here as bookings come in.</p></div>`;return;}
+  const total=bookings.length;
+  el.innerHTML=`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;">`+
     entries.map(([type,cnt],i)=>`
       <div class="stat-card">
         <div class="stat-top">
-          <div class="stat-icon" style="background:${COLORS[i%COLORS.length]}22; color:${COLORS[i%COLORS.length]};">📸</div>
+          <div class="stat-icon" style="background:${COLORS[i%COLORS.length]}22;color:${COLORS[i%COLORS.length]};">📸</div>
           <span class="stat-change" style="background:${COLORS[i%COLORS.length]}22;color:${COLORS[i%COLORS.length]};">${Math.round(cnt/total*100)}%</span>
         </div>
         <div class="stat-val" style="color:${COLORS[i%COLORS.length]};">${cnt}</div>
@@ -857,91 +821,29 @@ function renderSessions(){
       </div>`).join('')+`</div>`;
 }
 
-// ═══════════════════════════════════════════════
-//  EXPORT CSV
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════
+//  EXPORT
+// ═══════════════════════════════════════
 function exportCSV(){
-  if(!bookings.length){ showToast('⚠️','No bookings to export'); return; }
-  const headers = ['ID','First Name','Last Name','Email','Phone','Session Type','Package','Date','Time','People','Location','Special Requests','Status','Submitted'];
-  const rows = bookings.map(b=>[
-    b.id, b.firstName, b.lastName, b.email, b.phone,
-    b.sessionType, b.packageName||'', b.preferredDate||'', b.preferredTime||'',
-    b.numberOfPeople||1, b.location||'', (b.specialRequests||'').replace(/,/g,';'),
-    b.status, new Date(b.createdAt).toLocaleString()
-  ]);
-  const csv = [headers,...rows].map(r=>r.map(v=>`"${v}"`).join(',')).join('\n');
-  const a = document.createElement('a');
-  a.href = 'data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
-  a.download = 'lenz-of-kvee-bookings-'+new Date().toISOString().split('T')[0]+'.csv';
-  a.click();
+  if(!bookings.length){showToast('⚠️','No bookings to export');return;}
+  const headers=['ID','First Name','Last Name','Email','Phone','Session Type','Package','Date','Time','People','Location','Special Requests','Status','Submitted'];
+  const rows=bookings.map(b=>[b.id,b.firstName,b.lastName,b.email,b.phone,b.sessionType,b.packageName||'',b.preferredDate||'',b.preferredTime||'',b.numberOfPeople||1,b.location||'',(b.specialRequests||'').replace(/,/g,';'),b.status,new Date(b.createdAt).toLocaleString()]);
+  const csv=[headers,...rows].map(r=>r.map(v=>`"${v}"`).join(',')).join('\n');
+  const a=document.createElement('a'); a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv); a.download='lenz-bookings-'+new Date().toISOString().split('T')[0]+'.csv'; a.click();
   showToast('⬇️','Bookings exported as CSV');
 }
 
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════
 //  HELPERS
-// ═══════════════════════════════════════════════
-function save(){ localStorage.setItem('lokv_bookings', JSON.stringify(bookings)); }
+// ═══════════════════════════════════════
+function statusColor(s){ return {new:'#c9a84c',pending:'#5b8dee',confirmed:'#4caf82',completed:'#555',cancelled:'#e05555'}[s]||'#555'; }
+function timeAgo(ts){ const m=Math.floor((Date.now()-new Date(ts).getTime())/60000); if(m<1)return'just now'; if(m<60)return m+'m ago'; const h=Math.floor(m/60); if(h<24)return h+'h ago'; return Math.floor(h/24)+'d ago'; }
+function showToast(icon,msg){ const t=document.getElementById('toast'); document.getElementById('toastIcon').textContent=icon; document.getElementById('toastMsg').textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3200); }
 
-function statusColor(s){ return {new:COLORS[0],pending:COLORS[4]||'#5b8dee',confirmed:'#4caf82',completed:'#888',cancelled:'#e05555'}[s]||'#888'; }
-
-function timeAgo(ts){
-  const diff = Date.now()-new Date(ts).getTime();
-  const m = Math.floor(diff/60000);
-  if(m<1) return 'just now';
-  if(m<60) return m+'m ago';
-  const h = Math.floor(m/60);
-  if(h<24) return h+'h ago';
-  return Math.floor(h/24)+'d ago';
-}
-
-function showToast(icon, msg){
-  const t=document.getElementById('toast');
-  document.getElementById('toastIcon').textContent=icon;
-  document.getElementById('toastMsg').textContent=msg;
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),3000);
-}
-
-// ═══════════════════════════════════════════════
-//  FORMSPREE POLLING  (checks for new submissions)
-// ═══════════════════════════════════════════════
-// NOTE: Formspree free tier doesn't have an API for fetching submissions.
-// Bookings are saved locally when the booking form submits.
-// The booking form sends data to Formspree AND saves to this dashboard's localStorage.
-
-// ═══════════════════════════════════════════════
-//  RECEIVE BOOKINGS FROM booking.html via localStorage
-// ═══════════════════════════════════════════════
-// Listen for new bookings posted by booking.html on the same origin
-window.addEventListener('storage', function(e){
-  if(e.key === 'lokv_bookings'){
-    bookings = JSON.parse(e.newValue || '[]');
-    renderOverview();
-    showToast('📋','New booking received!');
-  }
-});
-
-// ═══════════════════════════════════════════════
-//  DEMO DATA (remove after real bookings come in)
-// ═══════════════════════════════════════════════
-function loadDemo(){
-  if(bookings.length) return; // Don't overwrite real data
-  const demo = [
-    { id:1, firstName:'Abena',    lastName:'Asante',  email:'abena@gmail.com',    phone:'0241234567', sessionType:'Studio Birthday – Kids',   packageName:'',         preferredDate:'2026-10-18', alternateDate:'', preferredTime:'10:00 AM', numberOfPeople:'3',  location:'Studio',  specialRequests:'Pink theme please',        heardAbout:'Instagram', status:'new',       createdAt: Date.now()-1000*60*5 },
-    { id:2, firstName:'Kofi',     lastName:'Mensah',  email:'kofi@yahoo.com',     phone:'0501234567', sessionType:'Outdoor Shoot – Adult',     packageName:'',         preferredDate:'2026-10-20', alternateDate:'', preferredTime:'2:00 PM',  numberOfPeople:'1',  location:'Labadi',  specialRequests:'',                          heardAbout:'Google',    status:'confirmed', createdAt: Date.now()-1000*60*60*3 },
-    { id:3, firstName:'Ama',      lastName:'Boateng', email:'ama@outlook.com',    phone:'0261234567', sessionType:'Wedding Photography',       packageName:'Classic',  preferredDate:'2026-11-02', alternateDate:'2026-11-09', preferredTime:'8:00 AM', numberOfPeople:'2', location:'Tema', specialRequests:'Outdoor ceremony',       heardAbout:'Referral from a friend', status:'pending', createdAt: Date.now()-1000*60*60*24 },
-    { id:4, firstName:'Kwame',    lastName:'Ofori',   email:'kwame@gmail.com',    phone:'0271234567', sessionType:'Headshots',                 packageName:'Professional', preferredDate:'2026-10-15', alternateDate:'', preferredTime:'11:00 AM', numberOfPeople:'1', location:'Studio', specialRequests:'', heardAbout:'LinkedIn', status:'completed', createdAt: Date.now()-1000*60*60*48 },
-    { id:5, firstName:'Efua',     lastName:'Darko',   email:'efua@gmail.com',     phone:'0551234567', sessionType:'Naming Ceremony / Birthday Party', packageName:'', preferredDate:'2026-10-25', alternateDate:'', preferredTime:'9:00 AM', numberOfPeople:'50', location:'Event Hall', specialRequests:'Drone needed', heardAbout:'Facebook', status:'new', createdAt: Date.now()-1000*60*30 },
-  ];
-  bookings = demo;
-  save();
-}
-
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════
 //  INIT
-// ═══════════════════════════════════════════════
-loadDemo();
-renderOverview();
+// ═══════════════════════════════════════
+checkAuth();
 </script>
 </body>
 </html>

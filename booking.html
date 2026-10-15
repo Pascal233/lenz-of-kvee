@@ -371,25 +371,34 @@ document.getElementById('bookingForm').addEventListener('submit', async function
     });
 
     if(res.ok){
-      // Save to dashboard localStorage
-      const existing = JSON.parse(localStorage.getItem('lokv_bookings') || '[]');
-      const newBooking = {
-        id: Date.now(),
-        firstName: fn, lastName: ln, email: em, phone: ph,
-        sessionType: st,
-        packageName: document.getElementById('packageName').value.trim(),
-        preferredDate: pd,
-        alternateDate: document.getElementById('alternateDate').value,
-        preferredTime: pt,
-        numberOfPeople: document.getElementById('numberOfPeople').value,
-        location: document.getElementById('location').value.trim(),
-        specialRequests: document.getElementById('specialRequests').value.trim(),
-        heardAbout: document.getElementById('heardAbout').value,
-        status: 'new',
-        createdAt: Date.now()
-      };
-      existing.push(newBooking);
-      localStorage.setItem('lokv_bookings', JSON.stringify(existing));
+      // Save to JSONBin cloud database so it appears in the dashboard
+      const BIN_ID  = '6ad03addffd5d160536c28d5';
+      const API_KEY = '$2a$10$wdMwHGBREVkcOMRfjUns4OHhGH1TrrRfbNTCu/OHg/LVZOB7XO2v2';
+      const BIN_URL = 'https://api.jsonbin.io/v3/b/' + BIN_ID;
+      try {
+        // 1. Fetch current bookings
+        const getRes = await fetch(BIN_URL+'/latest', { headers:{ 'X-Master-Key': API_KEY }});
+        const existing = getRes.ok ? (await getRes.json()).record.bookings || [] : [];
+        // 2. Add new booking
+        const newBooking = {
+          id: 'bk_'+Date.now(),
+          firstName: fn, lastName: ln, email: em, phone: ph,
+          sessionType: st,
+          packageName: document.getElementById('packageName').value.trim(),
+          preferredDate: pd,
+          alternateDate: document.getElementById('alternateDate').value,
+          preferredTime: pt,
+          numberOfPeople: document.getElementById('numberOfPeople').value,
+          location: document.getElementById('location').value.trim(),
+          specialRequests: document.getElementById('specialRequests').value.trim(),
+          heardAbout: document.getElementById('heardAbout').value,
+          status: 'new',
+          createdAt: Date.now()
+        };
+        existing.push(newBooking);
+        // 3. Save back
+        await fetch(BIN_URL, { method:'PUT', headers:{'Content-Type':'application/json','X-Master-Key':API_KEY}, body: JSON.stringify({bookings: existing}) });
+      } catch(e){ /* silent — Formspree email still went through */ }
 
       document.getElementById('bookingForm').style.display = 'none';
       const s = document.getElementById('successState');
