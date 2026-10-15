@@ -314,7 +314,7 @@ function clearError(grpId){
 });
 document.getElementById('agreeTerms').addEventListener('change', () => clearError('grp-terms'));
 
-document.getElementById('bookingForm').addEventListener('submit', function(e){
+document.getElementById('bookingForm').addEventListener('submit', async function(e){
   e.preventDefault();
   let valid = true;
 
@@ -339,20 +339,53 @@ document.getElementById('bookingForm').addEventListener('submit', function(e){
 
   if(!valid) return;
 
-  // Simulate submission
   const btn = document.getElementById('submitBtn');
   const txt = document.getElementById('btnText');
   btn.disabled = true;
   txt.textContent = 'Submitting…';
 
-  setTimeout(() => {
-    document.getElementById('bookingForm').style.display = 'none';
-    const s = document.getElementById('successState');
-    s.classList.add('show');
-    document.getElementById('successMsg').textContent =
-      'Thank you, ' + fn + '! Your ' + st + ' booking request has been submitted. We\'ll get back to you within 24–48 hours.';
-    window.scrollTo({top: 0, behavior: 'smooth'});
-  }, 1500);
+  // Build form data
+  const data = {
+    'First Name':         fn,
+    'Last Name':          ln,
+    'Email':              em,
+    'Phone':              ph,
+    'Session Type':       st,
+    'Package Interest':   document.getElementById('packageName').value.trim() || '—',
+    'Number of People':   document.getElementById('numberOfPeople').value,
+    'Preferred Location': document.getElementById('location').value.trim() || '—',
+    'Preferred Date':     pd,
+    'Alternate Date':     document.getElementById('alternateDate').value || '—',
+    'Preferred Time':     pt,
+    'Special Requests':   document.getElementById('specialRequests').value.trim() || '—',
+    'Heard About Us':     document.getElementById('heardAbout').value || '—',
+    '_subject':           '📸 New Booking Request — ' + st + ' (' + fn + ' ' + ln + ')',
+    '_replyto':           em,
+  };
+
+  try {
+    const res = await fetch('https://formspree.io/f/xjygpyvj', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data)
+    });
+
+    if(res.ok){
+      document.getElementById('bookingForm').style.display = 'none';
+      const s = document.getElementById('successState');
+      s.classList.add('show');
+      document.getElementById('successMsg').textContent =
+        'Thank you, ' + fn + '! Your ' + st + ' booking request has been submitted. We\'ll get back to you within 24–48 hours.';
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    } else {
+      const json = await res.json();
+      throw new Error(json.error || 'Submission failed');
+    }
+  } catch(err) {
+    btn.disabled = false;
+    txt.textContent = 'Submit Booking Request';
+    alert('Something went wrong. Please try again or contact us directly at lenzofkvee@gmail.com');
+  }
 });
 </script>
 </body>

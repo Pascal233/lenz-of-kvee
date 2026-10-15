@@ -190,7 +190,7 @@ document.getElementById('cName').addEventListener('input', ()=>clrErr('cgrp-name
 document.getElementById('cEmail').addEventListener('input', ()=>clrErr('cgrp-email'));
 document.getElementById('cMessage').addEventListener('input', ()=>clrErr('cgrp-message'));
 
-document.getElementById('contactForm').addEventListener('submit', function(e){
+document.getElementById('contactForm').addEventListener('submit', async function(e){
   e.preventDefault();
   let valid = true;
   const name = document.getElementById('cName').value.trim();
@@ -207,13 +207,36 @@ document.getElementById('contactForm').addEventListener('submit', function(e){
   document.getElementById('cBtnText').textContent = 'Sending…';
   btn.disabled = true;
 
-  setTimeout(()=>{
-    document.getElementById('contactForm').style.display = 'none';
-    const s = document.getElementById('contactSuccess');
-    s.classList.add('show');
-    document.getElementById('contactSuccessMsg').textContent = 'Thanks, ' + name + '! We\'ll get back to you soon.';
-    window.scrollTo({top:0, behavior:'smooth'});
-  }, 1400);
+  const data = {
+    'Name':    name,
+    'Email':   email,
+    'Phone':   document.getElementById('cPhone').value.trim() || '—',
+    'Subject': document.getElementById('cSubject').value.trim() || '—',
+    'Message': msg,
+    '_subject': '💬 New Message from ' + name + ' — LEnz of KVee',
+    '_replyto': email,
+  };
+
+  try {
+    const res = await fetch('https://formspree.io/f/xjygpyvj', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    if(res.ok){
+      document.getElementById('contactForm').style.display = 'none';
+      const s = document.getElementById('contactSuccess');
+      s.classList.add('show');
+      document.getElementById('contactSuccessMsg').textContent = 'Thanks, ' + name + '! We\'ll get back to you soon.';
+      window.scrollTo({top:0, behavior:'smooth'});
+    } else {
+      throw new Error('Failed');
+    }
+  } catch(err){
+    btn.disabled = false;
+    document.getElementById('cBtnText').textContent = 'Send Message';
+    alert('Something went wrong. Please try again or email us at lenzofkvee@gmail.com');
+  }
 });
 </script>
 </body>
